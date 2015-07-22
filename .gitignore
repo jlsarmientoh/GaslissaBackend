@@ -61,3 +61,5 @@ $RECYCLE.BIN/
 *.prefs
 *.classpath
 target
+gaslissa-db/.settings/org.eclipse.wst.common.project.facet.core.xml
+estacion-db/.settings/org.eclipse.wst.common.project.facet.core.xml

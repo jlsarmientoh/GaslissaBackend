@@ -41,6 +41,16 @@ public class ProductosTurno implements Serializable {
 	public ProductosTurno() {
 	}
 
+	public ProductosTurno(Timestamp fecha, double galones, String producto, double valor) {
+		super();
+		this.fecha = fecha;
+		this.galones = galones;
+		this.producto = producto;
+		this.valor = valor;
+	}
+
+
+
 	public long getId() {
 		return this.id;
 	}

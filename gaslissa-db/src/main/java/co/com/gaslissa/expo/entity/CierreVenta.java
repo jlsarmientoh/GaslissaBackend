@@ -67,6 +67,23 @@ public class CierreVenta implements Serializable {
 	public CierreVenta() {
 	}
 
+	public CierreVenta(double bigPass, double creditos, double efectivo, Timestamp fecha, double otros, double sodexo,
+			double tarjetaPlus, double tarjetas, double ticketTronik, double totalVentas) {
+		super();
+		this.bigPass = bigPass;
+		this.creditos = creditos;
+		this.efectivo = efectivo;
+		this.fecha = fecha;
+		this.otros = otros;
+		this.sodexo = sodexo;
+		this.tarjetaPlus = tarjetaPlus;
+		this.tarjetas = tarjetas;
+		this.ticketTronik = ticketTronik;
+		this.totalVentas = totalVentas;
+	}
+
+
+
 	public long getIdCierre() {
 		return this.idCierre;
 	}

@@ -62,6 +62,23 @@ public class Venta {
 	
 	@Column(name="COD_EMPLEADO")
 	private long codEmpleado;
+	
+	public Venta(){}
+	
+	public Venta(Timestamp fecha, String nit, double total, ModoPago modoPago) {
+		super();
+		this.fecha = fecha;
+		this.nit = nit;
+		this.total = total;
+		this.modoPago = modoPago;
+	}
+
+	public Venta(String nit, double total, ModoPago modoPago) {
+		super();
+		this.nit = nit;
+		this.total = total;
+		this.modoPago = modoPago;
+	}
 
 	public long getTiquete() {
 		return tiquete;
