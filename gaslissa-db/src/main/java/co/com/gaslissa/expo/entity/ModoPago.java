@@ -44,6 +44,11 @@ public class ModoPago implements Serializable {
 
 	public ModoPago() {
 	}
+	
+	public ModoPago(long idModoPago) {
+		super();
+		this.idModoPago = idModoPago;
+	}
 
 	public long getIdModoPago() {
 		return this.idModoPago;

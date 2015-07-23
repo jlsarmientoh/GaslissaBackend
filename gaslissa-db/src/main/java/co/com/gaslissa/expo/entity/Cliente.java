@@ -49,6 +49,14 @@ public class Cliente implements Serializable {
 	public Cliente() {
 	}
 
+	public Cliente(String identificacion, String nombre) {
+		super();
+		this.identificacion = identificacion;
+		this.nombre = nombre;
+	}
+
+
+
 	public long getIdCliente() {
 		return this.idCliente;
 	}

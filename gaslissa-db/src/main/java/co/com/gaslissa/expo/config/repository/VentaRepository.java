@@ -11,6 +11,7 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import co.com.gaslissa.expo.entity.Cliente;
 import co.com.gaslissa.expo.entity.Venta;
 
 /**
@@ -33,4 +34,23 @@ public interface VentaRepository extends CrudRepository<Venta, Long>, QueryDslPr
 			@Param("codigo") String codigo,
 			@Param("modoPago") Long modoPago 
 			);
+	
+	@Query("SELECT NEW co.com.gaslissa.expo.entity.Venta(v.nit, v.total) FROM Venta v WHERE v.fecha BETWEEN #{#desde} AND #{#hasta} AND (v.nit = #{#hasta} OR v.nit = #{#codigo}) GROUP BY v.nit, v.producto")
+	public List<Venta> consultarVentasAgrupadas(
+			@Param("desde")Date desde,
+			@Param("hasta")Date hasta,
+			@Param("nit") String nit,
+			@Param("codigo") String codigo
+			);
+	
+	@Query("SELECT v FROM Venta v WHERE v.fecha BETWEEN #{#desde} AND #{#hasta} AND (v.nit = #{#hasta} OR v.nit = #{#codigo})")
+	public List<Venta> consultarVentasCliente(
+			@Param("desde")Date desde,
+			@Param("hasta")Date hasta,
+			@Param("nit") String nit,
+			@Param("codigo") String codigo
+			);
+	
+	@Query("SELECT NEW co.com.gaslissa.expo.entity.Cliente(v.nit, v.cliente) FROM Venta v GROUP BY v.nit, v.cliente ORDER BY v.cliente")
+	public List<Cliente> consultarClientesVentas();
 }

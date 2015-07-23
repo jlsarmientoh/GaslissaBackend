@@ -80,6 +80,12 @@ public class Venta {
 		this.modoPago = modoPago;
 	}
 
+	public Venta(String nit, double total) {
+		super();
+		this.nit = nit;
+		this.total = total;
+	}
+
 	public long getTiquete() {
 		return tiquete;
 	}
