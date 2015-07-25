@@ -9,8 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import co.com.gaslissa.core.exception.ClienteExpoException;
-import co.com.gaslissa.expo.config.repository.ClienteRepository;
 import co.com.gaslissa.expo.entity.Cliente;
+import co.com.gaslissa.expo.repository.ClienteRepository;
 
 /**
  * @author Jorge

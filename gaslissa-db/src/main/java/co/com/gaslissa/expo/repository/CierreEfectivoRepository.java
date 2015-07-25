@@ -1,4 +1,4 @@
-package co.com.gaslissa.expo.config.repository;
+package co.com.gaslissa.expo.repository;
 
 import java.util.Date;
 import java.util.List;

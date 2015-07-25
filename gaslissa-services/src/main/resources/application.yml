@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: dev
+---
+spring:
+  profiles: default
+servipunto:
+  driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  url: jdbc:sqlserver://YORCH\SQLEXPRESS;databaseName=Estacion
+  user: gaslissa_app
+  pwd: $Gaslissa.2k9!
+expo:
+  driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  url: jdbc:sqlserver://YORCH\SQLEXPRESS;databaseName=Expo
+  user: gaslissa_app
+  pwd: $Gaslissa.2k9!
+  

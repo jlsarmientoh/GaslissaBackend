@@ -1,7 +1,7 @@
 /**
  * 
  */
-package co.com.gaslissa.expo.config.repository;
+package co.com.gaslissa.expo.repository;
 
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;

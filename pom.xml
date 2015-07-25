@@ -67,6 +67,21 @@
 		    <artifactId>logback-core</artifactId>
 		    <version>1.1.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>1.2.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>1.2.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>sqljdbc41</artifactId>
+			<version>4.1</version>
+		</dependency>
   	</dependencies>
   </dependencyManagement>
   <dependencies>
