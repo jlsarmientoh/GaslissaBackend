@@ -24,9 +24,9 @@ public interface CierreVentaRepository
 	public int consultarCuentaCierres(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta,
-			@Param("turno")short turno,
-			@Param("isla") String isla,
-			@Param("codEmp") String codEmp);
+			@Param("turno")long turno,
+			@Param("isla") long isla,
+			@Param("codEmp") long codEmp);
 	
 	@Query("SELECT c FROM CierreVenta c WHERE c.fecha BETWEEN #{#desde} AND #{#hasta}")
 	public List<CierreVenta> consultarCierres(

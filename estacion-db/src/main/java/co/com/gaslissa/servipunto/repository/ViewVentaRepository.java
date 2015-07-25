@@ -17,14 +17,14 @@ import co.com.gaslissa.servipunto.entity.ViewVenta;
  * @author Jorge
  *
  */
-public interface ViewVentaRepository extends CrudRepository<ViewVenta, Integer>, QueryDslPredicateExecutor<ViewVenta> {
+public interface ViewVentaRepository extends CrudRepository<ViewVenta, Long>, QueryDslPredicateExecutor<ViewVenta> {
 
 	@Query("SELECT v FROM ViewVenta v WHERE v.cliente <> #{#cliente} AND v.fecha BETWEEN #{#desde} AND #{#hasta} AND v.turno = #{#turno} ADN v.isla IN(#{#isla}) AND v.codEmp = #{#codEmp}")
 	public List<ViewVenta> consultarVentasFidelizados(
 			@Param("cliente") String cliente,
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta,
-			@Param("turno")short turno,
+			@Param("turno")int turno,
 			@Param("isla") String isla,
 			@Param("codEmp") String codEmp);
 	
@@ -33,7 +33,7 @@ public interface ViewVentaRepository extends CrudRepository<ViewVenta, Integer>,
 			@Param("cliente") String cliente,
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta,
-			@Param("turno")short turno,
+			@Param("turno")int turno,
 			@Param("isla") String isla,
 			@Param("codEmp") String codEmp);
 	
@@ -41,7 +41,7 @@ public interface ViewVentaRepository extends CrudRepository<ViewVenta, Integer>,
 	public List<ViewVenta> consultarVentasTurno(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta,
-			@Param("turno")short turno,
+			@Param("turno")int turno,
 			@Param("isla") String isla,
 			@Param("codEmp") String codEmp);
 	
@@ -50,18 +50,18 @@ public interface ViewVentaRepository extends CrudRepository<ViewVenta, Integer>,
 	
 	@Query("SELECT v FROM ViewVenta v WHERE v.tiquete_Nro = #{#tiquete} AND v.fecha BETWEEN #{#desde} AND #{#hasta} AND v.turno = #{#turno} ADN v.isla IN(#{#isla})")
 	public ViewVenta consultarVentasByTiqueteTurno(
-			@Param("tiquete")Integer tiquete_Nro,
+			@Param("tiquete")Long tiquete_Nro,
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta,
-			@Param("turno")short turno,
+			@Param("turno")int turno,
 			@Param("isla") String isla);
 	
-	@Query("SELECT new java.lang.Double(v.total) FROM v.cliente <> #{#cliente} AND ViewVenta v WHERE v.fecha BETWEEN #{#desde} AND #{#hasta} AND v.turno = #{#turno} ADN v.isla IN(#{#isla}) AND v.codEmp = #{#codEmp}")
+	@Query("SELECT new java.lang.Double(v.total) FROM ViewVenta v WHERE v.cliente <> #{#cliente} AND ViewVenta v WHERE v.fecha BETWEEN #{#desde} AND #{#hasta} AND v.turno = #{#turno} ADN v.isla IN(#{#isla}) AND v.codEmp = #{#codEmp}")
 	public Double consultarTotalVentasFidelizados(
 			@Param("cliente") String cliente,
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta,
-			@Param("turno")short turno,
+			@Param("turno")int turno,
 			@Param("isla") String isla,
 			@Param("codEmp") String codEmp);
 }

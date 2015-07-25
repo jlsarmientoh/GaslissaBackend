@@ -45,13 +45,13 @@ public class ViewVenta implements Serializable {
 
 	@Id
 	@Column(name="Tiquete_Nro")
-	private int tiquete_Nro;
+	private long tiquete_Nro;
 
 	@Column(name="TOTAL")
 	private BigDecimal total;
 
 	@Column(name="Turno")
-	private short turno;
+	private int turno;
 
 	@Column(name="Vehiculo_Placa")
 	private String vehiculo_Placa;
@@ -131,11 +131,11 @@ public class ViewVenta implements Serializable {
 		this.producto = producto;
 	}
 
-	public int getTiquete_Nro() {
+	public long getTiquete_Nro() {
 		return this.tiquete_Nro;
 	}
 
-	public void setTiquete_Nro(int tiquete_Nro) {
+	public void setTiquete_Nro(long tiquete_Nro) {
 		this.tiquete_Nro = tiquete_Nro;
 	}
 
@@ -147,7 +147,7 @@ public class ViewVenta implements Serializable {
 		this.total = total;
 	}
 
-	public short getTurno() {
+	public int getTurno() {
 		return this.turno;
 	}
 

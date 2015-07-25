@@ -22,7 +22,15 @@ public interface ViewProductoTurnoRepository extends QueryDslPredicateExecutor<V
 	public List<ViewProductosTurno>consultarProductosTurno(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta,
-			@Param("turno")short turno,
+			@Param("turno")int turno,
+			@Param("isla") String isla
+			);
+	
+	@Query("SELECT NEW java.lang.Double(SUM(v.valor)) FROM ViewProductosTurno v WHERE v.fecha BETWEEN #{#desde} AND #{#hasta} AND v.turno = #{#turno} ADN v.isla IN(#{#isla})")
+	public Double consultarTotalProductosTurno(
+			@Param("desde")Date desde,
+			@Param("hasta")Date hasta,
+			@Param("turno")int turno,
 			@Param("isla") String isla
 			);
 	
