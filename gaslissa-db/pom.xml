@@ -32,6 +32,11 @@
   		<groupId>com.microsoft.sqlserver</groupId>
   		<artifactId>sqljdbc41</artifactId>
   	</dependency>
+  	<dependency>
+  		<groupId>org.springframework.data</groupId>
+  		<artifactId>spring-data-commons</artifactId>
+  		<version>1.10.1.RELEASE</version>
+  	</dependency>
   </dependencies>
   
   <build>
