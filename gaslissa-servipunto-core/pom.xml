@@ -6,7 +6,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
-  <artifactId>gaslissa-commons</artifactId>
+  <artifactId>gaslissa-core</artifactId>
   
 	<build>
 		<plugins>
@@ -16,5 +16,16 @@
 			</plugin>
 		</plugins>
 	</build>
-  
+	<dependencies>
+		<dependency>
+			<groupId>co.com.gaslissa</groupId>
+			<artifactId>estacion-db</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>co.com.gaslissa</groupId>
+			<artifactId>gaslissa-commons</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>

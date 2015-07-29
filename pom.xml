@@ -5,13 +5,6 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>gaslissa-parent</name>
-  <modules>
-  	<module>estacion-db</module>
-  	<module>gaslissa-db</module>
-  	<module>gaslissa-commons</module>
-  	<module>gaslissa-services</module>
-  	<module>gaslissa-core</module>
-  </modules>
   
   <properties>
   	<java.version>1.7</java.version>
@@ -102,4 +95,13 @@
 	    <artifactId>logback-core</artifactId>
 	</dependency>
   </dependencies>
+  <modules>
+  	<module>estacion-db</module>
+  	<module>gaslissa-commons</module>
+  	<module>gaslissa-db</module>
+  	<module>gaslissa-expo-core</module>
+  	<module>gaslissa-expo-services</module>
+  	<module>gaslissa-servipunto-core</module>
+  	<module>gaslissa-servipunto-services</module>
+  </modules>
 </project>

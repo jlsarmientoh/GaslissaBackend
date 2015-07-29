@@ -4,6 +4,7 @@
     <groupId>co.com.gaslissa</groupId>
     <artifactId>gaslissa-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <relativePath>..</relativePath>
   </parent>
   <artifactId>gaslissa-db</artifactId>
   <description>Librería de acceso a datos de Gaslissa</description>

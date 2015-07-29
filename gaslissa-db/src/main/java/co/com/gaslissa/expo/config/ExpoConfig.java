@@ -28,11 +28,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @EnableConfigurationProperties
-@EnableJpaRepositories(
-		entityManagerFactoryRef = "expoEntityManager",
-		transactionManagerRef = "expoTransactionManager",
-		basePackages = {"co.com.gaslissa.expo.repository"}
-		)
+@EnableJpaRepositories(basePackages = {"co.com.gaslissa.expo.repository"})
 public class ExpoConfig {
 	
 	@Value("${expo.driver}")

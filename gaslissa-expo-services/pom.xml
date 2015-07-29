@@ -6,15 +6,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
-  <artifactId>gaslissa-commons</artifactId>
-  
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-  
+  <artifactId>gaslissa-expo-services</artifactId>
+  <name>Servicios de Expo</name>
 </project>

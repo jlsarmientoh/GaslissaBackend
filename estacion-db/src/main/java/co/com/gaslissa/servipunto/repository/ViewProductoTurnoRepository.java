@@ -8,15 +8,17 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import co.com.gaslissa.servipunto.entity.ViewProductosTurno;
+import co.com.gaslissa.servipunto.entity.ViewVenta;
 
 /**
  * @author Jorge
  *
  */
-public interface ViewProductoTurnoRepository extends QueryDslPredicateExecutor<ViewProductosTurno> {
+public interface ViewProductoTurnoRepository extends CrudRepository<ViewProductosTurno, String>, QueryDslPredicateExecutor<ViewProductosTurno> {
 
 	@Query("SELECT NEW co.com.gaslissa.servipunto.entity.ViewProductosTurno(v.fecha, v.galones, v.isla, v.producto, v.turno, v.valor) FROM ViewProductosTurno v WHERE v.fecha BETWEEN #{#desde} AND #{#hasta} AND v.turno = #{#turno} ADN v.isla IN(#{#isla})")
 	public List<ViewProductosTurno>consultarProductosTurno(

@@ -4,6 +4,7 @@
     <groupId>co.com.gaslissa</groupId>
     <artifactId>gaslissa-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <relativePath>..</relativePath>
   </parent>
   <artifactId>estacion-db</artifactId>
   <name>Librería de acceso a datos Servipunto</name>

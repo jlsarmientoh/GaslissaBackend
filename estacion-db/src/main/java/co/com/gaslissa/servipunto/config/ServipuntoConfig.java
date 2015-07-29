@@ -28,11 +28,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @EnableConfigurationProperties
-@EnableJpaRepositories(
-		entityManagerFactoryRef = "servipuntoEntityManager",
-		transactionManagerRef = "servipuntoTransactionManager",
-		basePackages = {"co.com.gaslissa.servipunto.repository"}
-		)
+@EnableJpaRepositories(basePackages = {"co.com.gaslissa.servipunto.repository"})
 public class ServipuntoConfig {
 	
 	@Value("${servipunto.driver}")
@@ -47,7 +43,7 @@ public class ServipuntoConfig {
 	@Value("${servipunto.pwd}")
 	private String pwd;
 
-	@Bean(name = "servipuntoDatasource")
+	@Bean//(name = "servipuntoDatasource")
 	public DataSource datasource(){
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		
@@ -59,9 +55,9 @@ public class ServipuntoConfig {
 		return dataSource;
 	}
 	
-	@Bean(name="servipuntoEntityManager")
+	@Bean(name="entityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean entityManager(
-			@Qualifier("servipuntoDatasource") DataSource datasource
+			/*@Qualifier("servipuntoDatasource")*/ DataSource datasource
 			){
 		LocalContainerEntityManagerFactoryBean entityManagerFacotry = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFacotry.setDataSource(datasource);
@@ -82,10 +78,10 @@ public class ServipuntoConfig {
 		return entityManagerFacotry;
 	}
 	
-	@Bean(name= "servipuntoTransactionManager")
+	@Bean//(name= "servipuntoTransactionManager")
 	public JpaTransactionManager transactionManager(
-			@Qualifier("servipuntoEntityManager") LocalContainerEntityManagerFactoryBean entityManager,
-			@Qualifier("servipuntoDatasource") DataSource datasource
+			/*@Qualifier("entityManagerFactory")*/ LocalContainerEntityManagerFactoryBean entityManager,
+			/*@Qualifier("servipuntoDatasource")*/ DataSource datasource
 			){
 		JpaTransactionManager transactionManager = new JpaTransactionManager(entityManager.getObject());
 		transactionManager.setDataSource(datasource);
@@ -93,9 +89,9 @@ public class ServipuntoConfig {
 		return transactionManager;
 	}
 	
-	@Bean(name = "servipuntoSessionFactory")
+	@Bean//(name = "servipuntoSessionFactory")
 	public HibernateJpaSessionFactoryBean sessionFactory(
-			@Qualifier("servipuntoEntityManager") LocalContainerEntityManagerFactoryBean entityManager
+			/*@Qualifier("servipuntoEntityManager")*/ LocalContainerEntityManagerFactoryBean entityManager
 			){
 		HibernateJpaSessionFactoryBean sessionFactory = new HibernateJpaSessionFactoryBean();
 		sessionFactory.setEntityManagerFactory(entityManager.getObject());
