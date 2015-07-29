@@ -6,51 +6,120 @@ package co.com.gaslissa.servipunto.repository;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.querydsl.QueryDslPredicateExecutor;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.com.gaslissa.servipunto.entity.ViewProductosTurno;
-import co.com.gaslissa.servipunto.entity.ViewVenta;
 
 /**
  * @author Jorge
  *
  */
-public interface ViewProductoTurnoRepository extends CrudRepository<ViewProductosTurno, String>, QueryDslPredicateExecutor<ViewProductosTurno> {
+@Repository
+@Transactional(readOnly = true)
+public class ViewProductoTurnoRepository{
+	
+	@PersistenceContext
+	private EntityManager em;
 
-	@Query("SELECT NEW co.com.gaslissa.servipunto.entity.ViewProductosTurno(v.fecha, v.galones, v.isla, v.producto, v.turno, v.valor) FROM ViewProductosTurno v WHERE v.fecha BETWEEN #{#desde} AND #{#hasta} AND v.turno = #{#turno} ADN v.isla IN(#{#isla})")
-	public List<ViewProductosTurno>consultarProductosTurno(
-			@Param("desde")Date desde,
-			@Param("hasta")Date hasta,
-			@Param("turno")int turno,
-			@Param("isla") String isla
-			);
+	/**
+	 * 
+	 * @param desde
+	 * @param hasta
+	 * @param turno
+	 * @param isla
+	 * @return
+	 */
+	public List<ViewProductosTurno> consultarProductosTurno(
+			Date desde,
+			Date hasta,
+			int turno,
+			String isla
+			){
+		Query query = em.createQuery("SELECT NEW co.com.gaslissa.servipunto.entity.ViewProductosTurno(v.fecha, v.galones, v.isla, v.producto, v.turno, v.valor) FROM ViewProductosTurno v WHERE v.fecha BETWEEN :desde AND :hasta AND v.turno = :turno ADN v.isla IN(:isla)");
+		query.setParameter("desde", desde);
+		query.setParameter("hasta", hasta);
+		query.setParameter("turno", turno);
+		query.setParameter("isla", isla);
+		
+		return query.getResultList();
+	}
 	
-	@Query("SELECT NEW java.lang.Double(SUM(v.valor)) FROM ViewProductosTurno v WHERE v.fecha BETWEEN #{#desde} AND #{#hasta} AND v.turno = #{#turno} ADN v.isla IN(#{#isla})")
+	/**
+	 * 
+	 * @param desde
+	 * @param hasta
+	 * @param turno
+	 * @param isla
+	 * @return
+	 */
 	public Double consultarTotalProductosTurno(
-			@Param("desde")Date desde,
-			@Param("hasta")Date hasta,
-			@Param("turno")int turno,
-			@Param("isla") String isla
-			);
+			Date desde,
+			Date hasta,
+			int turno,
+			String isla
+			){
+		Query query = em.createQuery("SELECT NEW java.lang.Double(SUM(v.valor)) FROM ViewProductosTurno v WHERE v.fecha BETWEEN :desde AND :hasta AND v.turno = :turno ADN v.isla IN(:isla)");
+		query.setParameter("desde", desde);
+		query.setParameter("hasta", hasta);
+		query.setParameter("turno", turno);
+		query.setParameter("isla", isla);
+		
+		return (Double) query.getSingleResult();
+	}
 	
-	@Query("SELECT NEW co.com.gaslissa.servipunto.entity.ViewProductosTurno(v.fecha, SUM(v.galones), v.isla, v.producto, v.turno, SUM(v.valor)) FROM ViewProductosTurno v WHERE v.fecha BETWEEN #{#desde} AND #{#hasta} GROUP BY v.fecha, v.producto")
+	/**
+	 * 
+	 * @param desde
+	 * @param hasta
+	 * @return
+	 */
 	public List<ViewProductosTurno> consultarProductosAgrupados(
-			@Param("desde")Date desde,
-			@Param("hasta")Date hasta
-			);
+			Date desde,
+			Date hasta
+			){
+		Query query = em.createQuery("SELECT NEW co.com.gaslissa.servipunto.entity.ViewProductosTurno(v.fecha, SUM(v.galones), v.isla, v.producto, v.turno, SUM(v.valor)) FROM ViewProductosTurno v WHERE v.fecha BETWEEN :desde AND :hasta GROUP BY v.fecha, v.producto");
+		query.setParameter("desde", desde);
+		query.setParameter("hasta", hasta);
+		
+		return query.getResultList();
+	}
 	
-	@Query("SELECT NEW java.lang.Double(SUM(v.valor)) FROM ViewProductosTurno v WHERE v.fecha BETWEEN #{#desde} AND #{#hasta}")
+	/**
+	 * 
+	 * @param desde
+	 * @param hasta
+	 * @return
+	 */
 	public Double consultarTotalConsumo(
-			@Param("desde")Date desde,
-			@Param("hasta")Date hasta
-			);
+			Date desde,
+			Date hasta
+			){
+		Query query = em.createQuery("SELECT NEW java.lang.Double(SUM(v.valor)) FROM ViewProductosTurno v WHERE v.fecha BETWEEN :desde AND :hasta");
+		query.setParameter("desde", desde);
+		query.setParameter("hasta", hasta);
+		
+		return (Double) query.getSingleResult();
+	}
 	
-	@Query("SELECT NEW java.lang.Double(SUM(v.galones)) FROM ViewProductosTurno v WHERE v.fecha BETWEEN #{#desde} AND #{#hasta}")
+	/**
+	 * 
+	 * @param desde
+	 * @param hasta
+	 * @return
+	 */
 	public Double consultarTotalGalones(
-			@Param("desde")Date desde,
-			@Param("hasta")Date hasta
-			);
+			Date desde,
+			Date hasta
+			){
+		Query query = em.createQuery("SELECT NEW java.lang.Double(SUM(v.galones)) FROM ViewProductosTurno v WHERE v.fecha BETWEEN :desde AND :hasta");
+		query.setParameter("desde", desde);
+		query.setParameter("hasta", hasta);
+		
+		return (Double) query.getSingleResult();
+	}
 }
