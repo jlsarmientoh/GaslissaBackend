@@ -1,9 +1,15 @@
 package co.com.gaslissa.common.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ValeVenta {
+public class ValeVenta implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4903844081091924071L;
+
 	private double cantidad;
 
 	private String cliente;

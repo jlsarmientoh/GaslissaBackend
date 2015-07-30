@@ -3,6 +3,7 @@
  */
 package co.com.gaslissa.servipunto.repository;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -19,16 +20,16 @@ import co.com.gaslissa.servipunto.entity.ViewVenta;
  */
 public interface ViewVentaRepository extends CrudRepository<ViewVenta, Long>, QueryDslPredicateExecutor<ViewVenta> {
 
-	@Query("SELECT v FROM ViewVenta v WHERE v.cliente <> #{#cliente} AND v.fecha BETWEEN #{#desde} AND #{#hasta} AND v.turno = #{#turno} ADN v.isla IN(#{#isla}) AND v.codEmp = #{#codEmp}")
+	@Query("SELECT v FROM ViewVenta v WHERE v.cliente <> :cliente AND v.fecha BETWEEN :desde AND :hasta AND v.turno = :turno AND v.isla IN(:isla) AND v.codEmp = :codEmp")
 	public List<ViewVenta> consultarVentasFidelizados(
 			@Param("cliente") String cliente,
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta,
 			@Param("turno")int turno,
-			@Param("isla") String isla,
+			@Param("isla") List<Integer> isla,
 			@Param("codEmp") String codEmp);
 	
-	@Query("SELECT v FROM ViewVenta v WHERE v.cliente = #{#cliente} AND v.fecha BETWEEN #{#desde} AND #{#hasta} AND v.turno = #{#turno} ADN v.isla IN(#{#isla}) AND v.codEmp = #{#codEmp}")
+	@Query("SELECT v FROM ViewVenta v WHERE v.cliente = :cliente AND v.fecha BETWEEN :desde AND :hasta AND v.turno = :turno AND v.isla IN(:isla) AND v.codEmp = :codEmp")
 	public List<ViewVenta> consultarVentasNoFidelizados(
 			@Param("cliente") String cliente,
 			@Param("desde")Date desde,
@@ -37,7 +38,7 @@ public interface ViewVentaRepository extends CrudRepository<ViewVenta, Long>, Qu
 			@Param("isla") String isla,
 			@Param("codEmp") String codEmp);
 	
-	@Query("SELECT v FROM ViewVenta v WHERE v.fecha BETWEEN #{#desde} AND #{#hasta} AND v.turno = #{#turno} ADN v.isla IN(#{#isla}) AND v.codEmp = #{#codEmp}")
+	@Query("SELECT v FROM ViewVenta v WHERE v.fecha BETWEEN :desde AND :hasta AND v.turno = :turno AND v.isla IN(:isla) AND v.codEmp = :codEmp")
 	public List<ViewVenta> consultarVentasTurno(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta,
@@ -45,10 +46,10 @@ public interface ViewVentaRepository extends CrudRepository<ViewVenta, Long>, Qu
 			@Param("isla") String isla,
 			@Param("codEmp") String codEmp);
 	
-	@Query("SELECT v FROM ViewVenta v WHERE v.tiquete_Nro = #{#tiquete}")
+	@Query("SELECT v FROM ViewVenta v WHERE v.tiquete_Nro = :tiquete")
 	public ViewVenta consultarVentasByTiquete(@Param("tiquete")Integer tiquete_Nro);
 	
-	@Query("SELECT v FROM ViewVenta v WHERE v.tiquete_Nro = #{#tiquete} AND v.fecha BETWEEN #{#desde} AND #{#hasta} AND v.turno = #{#turno} ADN v.isla IN(#{#isla})")
+	@Query("SELECT v FROM ViewVenta v WHERE v.tiquete_Nro = :tiquete AND v.fecha BETWEEN :desde AND :hasta AND v.turno = :turno AND v.isla IN(:isla)")
 	public ViewVenta consultarVentasByTiqueteTurno(
 			@Param("tiquete")Long tiquete_Nro,
 			@Param("desde")Date desde,
@@ -56,8 +57,8 @@ public interface ViewVentaRepository extends CrudRepository<ViewVenta, Long>, Qu
 			@Param("turno")int turno,
 			@Param("isla") String isla);
 	
-	@Query("SELECT new java.lang.Double(v.total) FROM ViewVenta v WHERE v.cliente <> #{#cliente} AND ViewVenta v WHERE v.fecha BETWEEN #{#desde} AND #{#hasta} AND v.turno = #{#turno} ADN v.isla IN(#{#isla}) AND v.codEmp = #{#codEmp}")
-	public Double consultarTotalVentasFidelizados(
+	@Query("SELECT v.total FROM ViewVenta v WHERE v.cliente <> :cliente AND v.fecha BETWEEN :desde AND :hasta AND v.turno = :turno AND v.isla IN(:isla) AND v.codEmp = :codEmp")
+	public BigDecimal consultarTotalVentasFidelizados(
 			@Param("cliente") String cliente,
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta,

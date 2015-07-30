@@ -1,9 +1,15 @@
 package co.com.gaslissa.common.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MedioDePago {
+public class MedioDePago implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -326530471827651474L;
+
 	private String nombre;
 	
 	private double valor;

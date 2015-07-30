@@ -3,15 +3,24 @@
  */
 package co.com.gaslissa.common.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 
 /**
  * @author Jorge
  *
  */
-public class CierreTurno {
+public class CierreTurno implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4316036913870266004L;
+
 	private Date fecha;
 	
 	private int isla;
@@ -26,6 +35,7 @@ public class CierreTurno {
 	
 	private List<MedioDePago> mediosDePago;
 
+	@JsonSerialize(using=DateSerializer.class)
 	public Date getFecha() {
 		return fecha;
 	}

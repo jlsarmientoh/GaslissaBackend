@@ -9,6 +9,9 @@ servipunto:
   url: jdbc:sqlserver://YORCH\SQLEXPRESS;databaseName=Estacion
   user: gaslissa_app
   pwd: $Gaslissa.2k9!
+  gruposIsla: 
+    - 1,2
+    - 3,4
 expo:
   driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
   url: jdbc:sqlserver://YORCH\SQLEXPRESS;databaseName=Expo
