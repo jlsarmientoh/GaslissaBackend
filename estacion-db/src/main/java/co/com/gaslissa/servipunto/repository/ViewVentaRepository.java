@@ -35,7 +35,7 @@ public interface ViewVentaRepository extends CrudRepository<ViewVenta, Long>, Qu
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta,
 			@Param("turno")int turno,
-			@Param("isla") String isla,
+			@Param("isla") List<Integer> isla,
 			@Param("codEmp") String codEmp);
 	
 	@Query("SELECT v FROM ViewVenta v WHERE v.fecha BETWEEN :desde AND :hasta AND v.turno = :turno AND v.isla IN(:isla) AND v.codEmp = :codEmp")
@@ -43,7 +43,7 @@ public interface ViewVentaRepository extends CrudRepository<ViewVenta, Long>, Qu
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta,
 			@Param("turno")int turno,
-			@Param("isla") String isla,
+			@Param("isla") List<Integer> isla,
 			@Param("codEmp") String codEmp);
 	
 	@Query("SELECT v FROM ViewVenta v WHERE v.tiquete_Nro = :tiquete")
@@ -55,7 +55,7 @@ public interface ViewVentaRepository extends CrudRepository<ViewVenta, Long>, Qu
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta,
 			@Param("turno")int turno,
-			@Param("isla") String isla);
+			@Param("isla") List<Integer> isla);
 	
 	@Query("SELECT v.total FROM ViewVenta v WHERE v.cliente <> :cliente AND v.fecha BETWEEN :desde AND :hasta AND v.turno = :turno AND v.isla IN(:isla) AND v.codEmp = :codEmp")
 	public BigDecimal consultarTotalVentasFidelizados(
@@ -63,6 +63,6 @@ public interface ViewVentaRepository extends CrudRepository<ViewVenta, Long>, Qu
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta,
 			@Param("turno")int turno,
-			@Param("isla") String isla,
+			@Param("isla") List<Integer> isla,
 			@Param("codEmp") String codEmp);
 }

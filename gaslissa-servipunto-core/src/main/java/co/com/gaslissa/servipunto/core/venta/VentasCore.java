@@ -10,6 +10,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import co.com.gaslissa.common.dto.Islero;
 import co.com.gaslissa.common.dto.ValeVenta;
 import co.com.gaslissa.common.enums.EstadoCliente;
 import co.com.gaslissa.servipunto.core.exception.CoreException;
@@ -61,34 +62,33 @@ public class VentasCore {
 			Date desde,
 			Date hasta,
 			int isla,
-			long turno) throws CoreException{
+			int turno) throws CoreException{
 		try{
 			List<ViewVenta> ventas = null;
-			List<ValeVenta> vales = new ArrayList<ValeVenta>();
-			int i = isla - 1;
-	        List<Integer> islas = new ArrayList<Integer>(); 
+			List<ValeVenta> vales = null;
 	        
-	        for(String islaItem : this.gruposIsla[i].split(",")){
-	        	islas.add(Integer.decode(islaItem));
-	        }
-	        
-			ventas = this.viewVentaRepository.consultarVentasFidelizados(EstadoCliente.NO_FIDELIZADO.descripcion(), desde, hasta, (short)turno, islas, Long.toString(codEmp));
+			ventas = this.viewVentaRepository.consultarVentasFidelizados(EstadoCliente.NO_FIDELIZADO.descripcion(), desde, hasta, turno, getIslas(isla), Long.toString(codEmp));
 			
-			for(ViewVenta venta : ventas){
-				ValeVenta vale = new ValeVenta();
-				vale.setCantidad(venta.getCantidad().doubleValue());
-				vale.setCliente(venta.getCliente());
-				vale.setCodEmp(Integer.valueOf(venta.getCodEmp()));
-				vale.setDescuento(venta.getDescuento().doubleValue());
-				vale.setFecha(new Date(venta.getFecha().getTime()));
-				vale.setIsla(isla);
-				vale.setKilometraje(venta.getKilAct().intValue());
-				vale.setNit(venta.getNit());
-				vale.setPlaca(venta.getVehiculo_Placa());
-				vale.setProducto(venta.getProducto());
-				vale.setTiquete_Nro(venta.getTiquete_Nro());
-				vale.setTotal(venta.getTotal().doubleValue());
-				vale.setTurno(venta.getTurno());
+			if(ventas != null){
+				vales = new ArrayList<ValeVenta>();
+				
+				for(ViewVenta venta : ventas){
+					ValeVenta vale = new ValeVenta();
+					vale.setCantidad(venta.getCantidad().doubleValue());
+					vale.setCliente(venta.getCliente());
+					vale.setCodEmp(Integer.valueOf(venta.getCodEmp()));
+					vale.setDescuento(venta.getDescuento().doubleValue());
+					vale.setFecha(new Date(venta.getFecha().getTime()));
+					vale.setIsla(isla);
+					vale.setKilometraje(venta.getKilAct().intValue());
+					vale.setNit(venta.getNit());
+					vale.setPlaca(venta.getVehiculo_Placa());
+					vale.setProducto(venta.getProducto());
+					vale.setTiquete_Nro(venta.getTiquete_Nro());
+					vale.setTotal(venta.getTotal().doubleValue());
+					vale.setTurno(venta.getTurno());
+					vales.add(vale);
+				}
 			}
 			
 			return vales;
@@ -109,24 +109,41 @@ public class VentasCore {
 	 * @throws CoreException
 	 * @throws CoreException
 	 */
-	public List<ViewVenta> consultarVentasNoFidelizados(
+	public List<ValeVenta> consultarVentasNoFidelizados(
 			long codEmp,
 			Date desde,
 			Date hasta,
 			int isla,
-			long turno) throws CoreException{
+			int turno) throws CoreException{
 		try{
-			List<ViewVenta> ventas;
-	        int i = isla - 1;
-	        String islas = this.gruposIsla[i];
-         
-			ventas = this.viewVentaRepository.consultarVentasNoFidelizados(EstadoCliente.NO_FIDELIZADO.descripcion(), desde, hasta, (short)turno, islas, Long.toString(codEmp));
+			List<ViewVenta> ventas = null;
+			List<ValeVenta> vales = null;
 			
-			for(ViewVenta venta : ventas){
-				venta.setIsla(isla);
+			ventas = this.viewVentaRepository.consultarVentasNoFidelizados(EstadoCliente.NO_FIDELIZADO.descripcion(), desde, hasta, turno, getIslas(isla), Long.toString(codEmp));
+			
+			if(ventas != null){
+				vales = new ArrayList<ValeVenta>();
+				
+				for(ViewVenta venta : ventas){
+					ValeVenta vale = new ValeVenta();
+					vale.setCantidad(venta.getCantidad().doubleValue());
+					vale.setCliente(venta.getCliente());
+					vale.setCodEmp(Integer.valueOf(venta.getCodEmp()));
+					vale.setDescuento(venta.getDescuento().doubleValue());
+					vale.setFecha(new Date(venta.getFecha().getTime()));
+					vale.setIsla(isla);
+					vale.setKilometraje(venta.getKilAct().intValue());
+					vale.setNit(venta.getNit());
+					vale.setPlaca(venta.getVehiculo_Placa());
+					vale.setProducto(venta.getProducto());
+					vale.setTiquete_Nro(venta.getTiquete_Nro());
+					vale.setTotal(venta.getTotal().doubleValue());
+					vale.setTurno(venta.getTurno());
+					vales.add(vale);
+				}
 			}
 			
-			return ventas;
+			return vales;
 		}catch(Exception e){
 			logger.error("No se puede realizar la consulta de ventas no fidelizadas: " + e.getMessage(), e);
 			throw new CoreException("No se puede realizar la consulta de ventas no fidelizadas: " + e.getMessage());
@@ -138,9 +155,23 @@ public class VentasCore {
 	 * @return
 	 * @throws CoreException
 	 */
-	List<Empleado> getEmpleados() throws CoreException{
+	List<Islero> getEmpleados() throws CoreException{
 		try{
-			return (List<Empleado>) this.empleadoRepository.findAll();
+			List<Islero> isleros = null;
+			List<Empleado> empleados = (List<Empleado>) this.empleadoRepository.findAll();
+			
+			if(empleados != null){
+				isleros = new ArrayList<Islero>();
+				
+				for(Empleado empleado : empleados){
+					Islero islero = new Islero();
+					islero.setCodigo(empleado.getCodEmp());
+					islero.setNombre(empleado.getNombre());
+					isleros.add(islero);
+				}
+			}
+			
+			return isleros;
 		}catch(Exception e){
 			logger.error("No se puede realizar la consulta de empelados en la bd servipunto: " + e.getMessage(), e);
 			throw new CoreException("No se puede realizar la consulta de empelados en la bd servipunto: " + e.getMessage());
@@ -166,11 +197,8 @@ public class VentasCore {
 			int isla, 
 			Date desde, 
 			Date hasta) throws CoreException {
-        try{   
-            int i = isla - 1;
-            String islas = this.gruposIsla[i];
-
-            return this.viewVentaRepository.consultarTotalVentasFidelizados(EstadoCliente.NO_FIDELIZADO.descripcion(), desde, hasta, turno, islas, Long.toString(codEmpleado)).doubleValue();                
+        try{
+            return this.viewVentaRepository.consultarTotalVentasFidelizados(EstadoCliente.NO_FIDELIZADO.descripcion(), desde, hasta, turno, getIslas(isla), Long.toString(codEmpleado)).doubleValue();                
         }catch (Exception ex){
         	logger.error("No se puede calcular el total de las ventas fidelizadas desde la base de datos Servipunto: " + ex.getMessage(), ex);
             throw new CoreException("No se puede calcular el total de las ventas fidelizadas desde la base de datos Servipunto: " + ex.getMessage());
@@ -214,20 +242,77 @@ public class VentasCore {
 	 * @return
 	 * @throws CoreException
 	 */
-	public ViewVenta consultarVentaTurno(
+	public ValeVenta consultarVentaTurno(
 			long nroTiquete, 
 			Date desde, 
 			Date hasta, 
 			int isla, 
 			int turno) throws CoreException{
-		try{   
-            int i = isla - 1;
-            String islas = this.gruposIsla[i];
-
-            return this.viewVentaRepository.consultarVentasByTiqueteTurno(nroTiquete, desde, hasta, turno, islas);       
+		try{
+			ValeVenta vale = null;
+            ViewVenta venta = this.viewVentaRepository.consultarVentasByTiqueteTurno(nroTiquete, desde, hasta, turno, getIslas(isla));
+            
+            if(venta != null){
+            	vale = new ValeVenta();
+	            vale.setCantidad(venta.getCantidad().doubleValue());
+				vale.setCliente(venta.getCliente());
+				vale.setCodEmp(Integer.valueOf(venta.getCodEmp()));
+				vale.setDescuento(venta.getDescuento().doubleValue());
+				vale.setFecha(new Date(venta.getFecha().getTime()));
+				vale.setIsla(isla);
+				vale.setKilometraje(venta.getKilAct().intValue());
+				vale.setNit(venta.getNit());
+				vale.setPlaca(venta.getVehiculo_Placa());
+				vale.setProducto(venta.getProducto());
+				vale.setTiquete_Nro(venta.getTiquete_Nro());
+				vale.setTotal(venta.getTotal().doubleValue());
+				vale.setTurno(venta.getTurno());
+            }
+            
+            return vale;
         }catch (Exception ex){
         	logger.error("No se puede obtener informaci�n del ticket # "+ nroTiquete + " desde la base de datos Servipunto: " + ex.getMessage(), ex);
             throw new CoreException("No se puede obtener informaci�n del ticket # "+ nroTiquete + " desde la base de datos Servipunto: " + ex.getMessage());
         }
+	}
+	
+	public ValeVenta consultarVenta(long id) throws CoreException{
+		try{
+			ValeVenta vale = null;
+            ViewVenta venta = this.viewVentaRepository.findOne(id);
+            
+            if(venta != null){
+            	vale = new ValeVenta();
+	            vale.setCantidad(venta.getCantidad().doubleValue());
+				vale.setCliente(venta.getCliente());
+				vale.setCodEmp(Integer.valueOf(venta.getCodEmp()));
+				vale.setDescuento(venta.getDescuento().doubleValue());
+				vale.setFecha(new Date(venta.getFecha().getTime()));
+				vale.setIsla(venta.getIsla());
+				vale.setKilometraje(venta.getKilAct().intValue());
+				vale.setNit(venta.getNit());
+				vale.setPlaca(venta.getVehiculo_Placa());
+				vale.setProducto(venta.getProducto());
+				vale.setTiquete_Nro(venta.getTiquete_Nro());
+				vale.setTotal(venta.getTotal().doubleValue());
+				vale.setTurno(venta.getTurno());
+            }
+            
+            return vale;
+        }catch (Exception ex){
+        	logger.error("No se puede obtener informaci�n del ticket # "+ id + " desde la base de datos Servipunto: " + ex.getMessage(), ex);
+            throw new CoreException("No se puede obtener informaci�n del ticket # "+ id + " desde la base de datos Servipunto: " + ex.getMessage());
+        }
+	}
+	
+	private List<Integer> getIslas(int isla){
+		List<Integer> islas = new ArrayList<Integer>(); 
+        String[] grupo = this.gruposIsla[isla -1].split(",");
+		
+        for(String islaItem : grupo){
+        	islas.add(Integer.decode(islaItem));
+        }
+        
+        return islas;
 	}
 }
