@@ -10,15 +10,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import co.com.gaslissa.common.dto.Islero;
 import co.com.gaslissa.common.dto.ValeVenta;
 import co.com.gaslissa.common.enums.EstadoCliente;
 import co.com.gaslissa.servipunto.core.exception.CoreException;
 import co.com.gaslissa.servipunto.core.util.CoreUtil;
-import co.com.gaslissa.servipunto.entity.Empleado;
 import co.com.gaslissa.servipunto.entity.ViewVenta;
-import co.com.gaslissa.servipunto.repository.EmpleadoRepository;
-import co.com.gaslissa.servipunto.repository.ViewProductoTurnoRepository;
 import co.com.gaslissa.servipunto.repository.ViewVentaRepository;
 
 /**
@@ -33,17 +29,15 @@ public class VentasCore {
 	
 	private final ViewVentaRepository viewVentaRepository;
 	
-	private final EmpleadoRepository empleadoRepository;
-	
-	
-	
-	
-	public VentasCore(String[] gruposIsla, ViewVentaRepository viewVentaRepository,
-			EmpleadoRepository empleadoRepository) {
+	/**
+	 * 
+	 * @param gruposIsla
+	 * @param viewVentaRepository
+	 */
+	public VentasCore(String[] gruposIsla, ViewVentaRepository viewVentaRepository) {
 		super();
 		this.gruposIsla = gruposIsla;
 		this.viewVentaRepository = viewVentaRepository;
-		this.empleadoRepository = empleadoRepository;
 	}
 
 	/**
@@ -149,35 +143,6 @@ public class VentasCore {
 			throw new CoreException("No se puede realizar la consulta de ventas no fidelizadas: " + e.getMessage());
 		}
 	}
-	
-	/**
-	 * Trae la lista de todos los empleados en el BD de servipunto
-	 * @return
-	 * @throws CoreException
-	 */
-	List<Islero> getEmpleados() throws CoreException{
-		try{
-			List<Islero> isleros = null;
-			List<Empleado> empleados = (List<Empleado>) this.empleadoRepository.findAll();
-			
-			if(empleados != null){
-				isleros = new ArrayList<Islero>();
-				
-				for(Empleado empleado : empleados){
-					Islero islero = new Islero();
-					islero.setCodigo(empleado.getCodEmp());
-					islero.setNombre(empleado.getNombre());
-					isleros.add(islero);
-				}
-			}
-			
-			return isleros;
-		}catch(Exception e){
-			logger.error("No se puede realizar la consulta de empelados en la bd servipunto: " + e.getMessage(), e);
-			throw new CoreException("No se puede realizar la consulta de empelados en la bd servipunto: " + e.getMessage());
-		}
-	}
-	
 	
 	
 	/**
