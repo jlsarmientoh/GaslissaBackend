@@ -1,17 +1,19 @@
-package co.com.gaslissa.servipunto.entity;
+package co.com.gaslissa.common.dto;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 
-/**
- * The persistent class for the ViewProductosTurno database table.
- * 
- */
-public class ViewProductosTurno implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Consumo implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 457358046646344108L;
 
-	private Timestamp fecha;
+	private Date fecha;
 
 	private double galones;
 
@@ -23,25 +25,12 @@ public class ViewProductosTurno implements Serializable {
 
 	private double valor;
 
-	public ViewProductosTurno() {
-	}
-	
-	public ViewProductosTurno(Timestamp fecha, double galones, int isla, String producto, int turno, double valor) {
-		super();
-		this.fecha = fecha;
-		this.galones = galones;
-		this.isla = isla;
-		this.producto = producto;
-		this.turno = turno;
-		this.valor = valor;
-	}
-
-
-	public Timestamp getFecha() {
+	@JsonSerialize(using=DateSerializer.class)
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Timestamp fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 

@@ -14,6 +14,7 @@ import co.com.gaslissa.common.dto.Islero;
 import co.com.gaslissa.common.dto.ValeVenta;
 import co.com.gaslissa.common.enums.EstadoCliente;
 import co.com.gaslissa.servipunto.core.exception.CoreException;
+import co.com.gaslissa.servipunto.core.util.CoreUtil;
 import co.com.gaslissa.servipunto.entity.Empleado;
 import co.com.gaslissa.servipunto.entity.ViewVenta;
 import co.com.gaslissa.servipunto.repository.EmpleadoRepository;
@@ -34,16 +35,15 @@ public class VentasCore {
 	
 	private final EmpleadoRepository empleadoRepository;
 	
-	private final ViewProductoTurnoRepository viewProductoTurnoRepository;
+	
 	
 	
 	public VentasCore(String[] gruposIsla, ViewVentaRepository viewVentaRepository,
-			EmpleadoRepository empleadoRepository, ViewProductoTurnoRepository viewProductoTurnoRepository) {
+			EmpleadoRepository empleadoRepository) {
 		super();
 		this.gruposIsla = gruposIsla;
 		this.viewVentaRepository = viewVentaRepository;
 		this.empleadoRepository = empleadoRepository;
-		this.viewProductoTurnoRepository = viewProductoTurnoRepository;
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class VentasCore {
 			List<ViewVenta> ventas = null;
 			List<ValeVenta> vales = null;
 	        
-			ventas = this.viewVentaRepository.consultarVentasFidelizados(EstadoCliente.NO_FIDELIZADO.descripcion(), desde, hasta, turno, getIslas(isla), Long.toString(codEmp));
+			ventas = this.viewVentaRepository.consultarVentasFidelizados(EstadoCliente.NO_FIDELIZADO.descripcion(), desde, hasta, turno, CoreUtil.getIslas(isla, this.gruposIsla), Long.toString(codEmp));
 			
 			if(ventas != null){
 				vales = new ArrayList<ValeVenta>();
@@ -119,7 +119,7 @@ public class VentasCore {
 			List<ViewVenta> ventas = null;
 			List<ValeVenta> vales = null;
 			
-			ventas = this.viewVentaRepository.consultarVentasNoFidelizados(EstadoCliente.NO_FIDELIZADO.descripcion(), desde, hasta, turno, getIslas(isla), Long.toString(codEmp));
+			ventas = this.viewVentaRepository.consultarVentasNoFidelizados(EstadoCliente.NO_FIDELIZADO.descripcion(), desde, hasta, turno, CoreUtil.getIslas(isla, this.gruposIsla), Long.toString(codEmp));
 			
 			if(ventas != null){
 				vales = new ArrayList<ValeVenta>();
@@ -198,38 +198,12 @@ public class VentasCore {
 			Date desde, 
 			Date hasta) throws CoreException {
         try{
-            return this.viewVentaRepository.consultarTotalVentasFidelizados(EstadoCliente.NO_FIDELIZADO.descripcion(), desde, hasta, turno, getIslas(isla), Long.toString(codEmpleado)).doubleValue();                
+            return this.viewVentaRepository.consultarTotalVentasFidelizados(EstadoCliente.NO_FIDELIZADO.descripcion(), desde, hasta, turno, CoreUtil.getIslas(isla, this.gruposIsla), Long.toString(codEmpleado)).doubleValue();                
         }catch (Exception ex){
         	logger.error("No se puede calcular el total de las ventas fidelizadas desde la base de datos Servipunto: " + ex.getMessage(), ex);
             throw new CoreException("No se puede calcular el total de las ventas fidelizadas desde la base de datos Servipunto: " + ex.getMessage());
         }
     }
-	
-	/**
-	 * Retorna el total en cosumo de combustible de acuerdo con los
-	 * par�metros dados
-	 * @param desde
-	 * @param hasta
-	 * @param isla
-	 * @param turno
-	 * @return
-	 * @throws CoreException
-	 */
-	public double consultarTotalProductosTurno(
-			Date desde, 
-			Date hasta, 
-			int isla, 
-			int turno) throws CoreException {
-		try{   
-            int i = isla - 1;
-            String islas = this.gruposIsla[i];
-
-            return this.viewProductoTurnoRepository.consultarTotalProductosTurno(desde, hasta, turno, islas);       
-        }catch (Exception ex){
-        	logger.error("No se puede calcular el total de los consumos de combustible desde la base de datos Servipunto: " + ex.getMessage(), ex);
-            throw new CoreException("No se puede calcular el total de los consumos de combustible desde la base de datos Servipunto: " + ex.getMessage());
-        }
-	}
 	
 	/**
 	 * Retorna la informaci�n de un ticket en particular 
@@ -250,7 +224,7 @@ public class VentasCore {
 			int turno) throws CoreException{
 		try{
 			ValeVenta vale = null;
-            ViewVenta venta = this.viewVentaRepository.consultarVentasByTiqueteTurno(nroTiquete, desde, hasta, turno, getIslas(isla));
+            ViewVenta venta = this.viewVentaRepository.consultarVentasByTiqueteTurno(nroTiquete, desde, hasta, turno, CoreUtil.getIslas(isla, this.gruposIsla));
             
             if(venta != null){
             	vale = new ValeVenta();
@@ -305,14 +279,4 @@ public class VentasCore {
         }
 	}
 	
-	private List<Integer> getIslas(int isla){
-		List<Integer> islas = new ArrayList<Integer>(); 
-        String[] grupo = this.gruposIsla[isla -1].split(",");
-		
-        for(String islaItem : grupo){
-        	islas.add(Integer.decode(islaItem));
-        }
-        
-        return islas;
-	}
 }

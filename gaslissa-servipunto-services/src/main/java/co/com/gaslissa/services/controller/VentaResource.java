@@ -43,7 +43,7 @@ public class VentaResource {
 		this.ventasCore = ventasCore;
 	}
 	
-	@RequestMapping(value = "/fidelizados", method = RequestMethod.POST)
+	@RequestMapping(value = "/fidelizados/turno", method = RequestMethod.POST)
 	public ResponseEntity<List<ValeVenta>> getVentasFidelizados(
 			@RequestBody CierreTurno input){
 		try {
@@ -60,7 +60,24 @@ public class VentaResource {
 		}
 	}
 	
-	@RequestMapping(value = "/nofidelizados", method = RequestMethod.POST)
+	@RequestMapping(value = "/fidelizados/turno/total", method = RequestMethod.POST)
+	public ResponseEntity<Double> getTotalVentasFidelizados(
+			@RequestBody CierreTurno input){
+		try {
+			Double total = ventasCore.consultarTotalVentasFidelizadas(input.getEmpleado(), input.getTurno(), input.getIsla(), input.getFecha(), input.getFecha());
+			
+			if(total == null){
+				return new ResponseEntity<Double>(total, HttpStatus.NOT_FOUND);
+			}else{
+				return new ResponseEntity<Double>(total, HttpStatus.OK);
+			}
+		} catch (CoreException ex) {
+			logger.error("No se puede realizar la operación de guardar cierre.  Por favor revise los datos del cierre y vuelva a intentarlo." + ex.getMessage());
+			return new ResponseEntity<Double>(new Double(0), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@RequestMapping(value = "/nofidelizados/turno", method = RequestMethod.POST)
 	public ResponseEntity<List<ValeVenta>> getVentasNoFidelizados(
 			@RequestBody CierreTurno input){
 		try {

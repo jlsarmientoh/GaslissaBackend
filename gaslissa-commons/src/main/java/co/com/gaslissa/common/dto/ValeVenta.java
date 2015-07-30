@@ -3,6 +3,9 @@ package co.com.gaslissa.common.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.DateSerializer;
+
 public class ValeVenta implements Serializable{
 	
 	/**
@@ -68,6 +71,7 @@ public class ValeVenta implements Serializable{
 		this.descuento = descuento;
 	}
 
+	@JsonSerialize(using=DateSerializer.class)
 	public Date getFecha() {
 		return fecha;
 	}
