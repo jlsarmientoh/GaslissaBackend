@@ -4,6 +4,7 @@
 package co.com.gaslissa.expo.entity;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+import org.apache.commons.net.ntp.TimeStamp;
 
 /**
  * The persistent class for the VENTAS database table.
@@ -65,19 +68,19 @@ public class Venta {
 	
 	public Venta(){}
 	
-	public Venta(Timestamp fecha, String nit, double total, ModoPago modoPago) {
+	public Venta(Date fecha, String nit, double total, long idModoPago) {
 		super();
-		this.fecha = fecha;
+		this.fecha = new Timestamp(fecha.getTime());
 		this.nit = nit;
 		this.total = total;
-		this.modoPago = modoPago;
+		this.modoPago = new ModoPago(idModoPago);
 	}
 
-	public Venta(String nit, double total, ModoPago modoPago) {
+	public Venta(String nit, double total, long idModoPago) {
 		super();
 		this.nit = nit;
 		this.total = total;
-		this.modoPago = modoPago;
+		this.modoPago = new ModoPago(idModoPago);
 	}
 
 	public Venta(String nit, double total) {

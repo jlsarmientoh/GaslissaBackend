@@ -3,6 +3,7 @@ package co.com.gaslissa.expo.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 
@@ -67,13 +68,13 @@ public class CierreVenta implements Serializable {
 	public CierreVenta() {
 	}
 
-	public CierreVenta(double bigPass, double creditos, double efectivo, Timestamp fecha, double otros, double sodexo,
+	public CierreVenta(double bigPass, double creditos, double efectivo, Date fecha, double otros, double sodexo,
 			double tarjetaPlus, double tarjetas, double ticketTronik, double totalVentas) {
 		super();
 		this.bigPass = bigPass;
 		this.creditos = creditos;
 		this.efectivo = efectivo;
-		this.fecha = fecha;
+		this.fecha = new Timestamp(fecha.getTime());
 		this.otros = otros;
 		this.sodexo = sodexo;
 		this.tarjetaPlus = tarjetaPlus;

@@ -20,29 +20,29 @@ import co.com.gaslissa.expo.entity.CierreVenta;
 public interface CierreVentaRepository
 		extends CrudRepository<CierreVenta, Long>, QueryDslPredicateExecutor<CierreVenta> {
 
-	@Query("SELECT NEW java.lang.Integer(COUNT(c.idCierre)) FROM CierreVenta c WHERE c.fecha BETWEEN #{#desde} AND #{#hasta} AND c.turno = #{#turno} ADN c.isla IN(#{#isla}) AND c.codEmp = #{#codEmp}")
-	public int consultarCuentaCierres(
+	@Query("SELECT NEW java.lang.Long(COUNT(c.idCierre)) FROM CierreVenta c WHERE c.fecha BETWEEN :desde AND :hasta AND c.turno = :turno AND c.isla IN(:isla) AND c.codEmpleado = :codEmp")
+	public long consultarCuentaCierres(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta,
 			@Param("turno")long turno,
 			@Param("isla") long isla,
 			@Param("codEmp") long codEmp);
 	
-	@Query("SELECT c FROM CierreVenta c WHERE c.fecha BETWEEN #{#desde} AND #{#hasta}")
+	@Query("SELECT c FROM CierreVenta c WHERE c.fecha BETWEEN :desde AND :hasta")
 	public List<CierreVenta> consultarCierres(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta);
 	
 	//TODO cambiar esto por la tabla de detalle cierre
-	@Query("SELECT NEW co.com.gaslissa.expo.entity.CierreVenta(SUM(c.bigPass), SUM(c.creditos), SUM(c.efectivo), c.fecha, SUM(c.otros), SUM(c.sodexo), SUM(c.tarjetaPlus), SUM(c.tarjetas), SUM(c.ticketTronik), SUM(c.totalVentas)) FROM CierreVenta c WHERE c.fecha BETWEEN #{#desde} AND #{#hasta} GROUP BY c.fecha")
+	@Query("SELECT NEW co.com.gaslissa.expo.entity.CierreVenta(SUM(c.bigPass), SUM(c.creditos), SUM(c.efectivo), c.fecha, SUM(c.otros), SUM(c.sodexo), SUM(c.tarjetaPlus), SUM(c.tarjetas), SUM(c.ticketTronik), SUM(c.totalVentas)) FROM CierreVenta c WHERE c.fecha BETWEEN :desde AND :hasta GROUP BY c.fecha")
 	public List<CierreVenta> consultarCierresAgrupados(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta);
 	
 	//TODO cambiar esto por la tabla de detalle cierre
-	@Query("SELECT NEW java.lang.Integer(COUNT(c.#{#medio})) FROM CierreVenta c WHERE c.fecha BETWEEN #{#desde} AND #{#hasta} AND c.turno = #{#turno} ADN c.isla IN(#{#isla}) AND c.codEmp = #{#codEmp}")
+	@Query("SELECT NEW java.lang.Long(COUNT(c.idCierre)) FROM CierreVenta c WHERE c.fecha BETWEEN :desde AND :hasta AND c.turno = :turno AND c.isla IN(:isla) AND c.codEmpleado = :codEmp")
 	public Double consultarTotalMedioPago(
-			@Param("medio") long medio,
+			/*@Param("medio") long medio,*/
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta);
 }

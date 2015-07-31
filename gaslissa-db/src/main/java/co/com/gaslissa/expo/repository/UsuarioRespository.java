@@ -16,7 +16,7 @@ import co.com.gaslissa.expo.entity.Usuario;
  */
 public interface UsuarioRespository extends CrudRepository<Usuario, String>, QueryDslPredicateExecutor<Usuario> {
 
-	@Query("SELECT u FROM Usuario u WHERE u.idUsuario = #{#usuario} AND u.pwd = #{#pwd}")
+	@Query("SELECT u FROM Usuario u WHERE u.idUsuario = :usuario AND u.pwd = :pwd")
 	public Usuario consultarUsuario(
 			@Param("usuario")String usuario,
 			@Param("pwd")String password

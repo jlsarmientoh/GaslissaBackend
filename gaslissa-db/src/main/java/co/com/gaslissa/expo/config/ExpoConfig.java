@@ -7,8 +7,6 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -43,7 +41,7 @@ public class ExpoConfig {
 	@Value("${expo.pwd}")
 	private String pwd;
 	
-	@Bean(name = "expoDatasource")
+	@Bean
 	public DataSource datasource(){
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		
@@ -55,9 +53,9 @@ public class ExpoConfig {
 		return dataSource;
 	}
 	
-	@Bean(name="expoEntityManager")
+	@Bean(name="entityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean entityManager(
-			@Qualifier("expoDatasource") DataSource datasource
+			DataSource datasource
 			){
 		LocalContainerEntityManagerFactoryBean entityManagerFacotry = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFacotry.setDataSource(datasource);
@@ -78,10 +76,10 @@ public class ExpoConfig {
 		return entityManagerFacotry;
 	}
 	
-	@Bean(name= "expoTransactionManager")
+	@Bean
 	public JpaTransactionManager transactionManager(
-			@Qualifier("expoEntityManager") LocalContainerEntityManagerFactoryBean entityManager,
-			@Qualifier("expoDatasource") DataSource datasource
+			LocalContainerEntityManagerFactoryBean entityManager,
+			DataSource datasource
 			){
 		JpaTransactionManager transactionManager = new JpaTransactionManager(entityManager.getObject());
 		transactionManager.setDataSource(datasource);
@@ -89,9 +87,9 @@ public class ExpoConfig {
 		return transactionManager;
 	}
 	
-	@Bean(name = "expoSessionFactory")
+	@Bean
 	public HibernateJpaSessionFactoryBean sessionFactory(
-			@Qualifier("expoEntityManager") LocalContainerEntityManagerFactoryBean entityManager
+			LocalContainerEntityManagerFactoryBean entityManager
 			){
 		HibernateJpaSessionFactoryBean sessionFactory = new HibernateJpaSessionFactoryBean();
 		sessionFactory.setEntityManagerFactory(entityManager.getObject());

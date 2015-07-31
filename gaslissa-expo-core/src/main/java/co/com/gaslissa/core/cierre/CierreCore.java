@@ -42,7 +42,7 @@ public class CierreCore {
 			Date desde, 
 			Date hasta) throws CierreTurnoException{
         try{
-        	int i = 0;
+        	long i = 0;
         	i = this.cierreVentaRepository.consultarCuentaCierres(
         			desde,
         			hasta,

@@ -19,19 +19,19 @@ import co.com.gaslissa.expo.entity.Egreso;
  */
 public interface EgresoRepository extends CrudRepository<Egreso, Long>, QueryDslPredicateExecutor<Egreso> {
 
-	@Query("SELECT e FROM Egreso e WHERE e.fecha BETWEEN #{#desde} AND #{#hasta}")
+	@Query("SELECT e FROM Egreso e WHERE e.fecha BETWEEN :desde AND :hasta")
 	public List<Egreso> consultarEgresosFecha(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta
 			);
 	
-	@Query("SELECT e FROM Egreso e WHERE e.fechaAplica BETWEEN #{#desde} AND #{#hasta}")
+	@Query("SELECT e FROM Egreso e WHERE e.fechaAplica BETWEEN :desde AND :hasta")
 	public List<Egreso> consultarEgresosAplicadosFecha(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta
 			);
 	
-	@Query("SELECT new java.lang.Double(e.valor) FROM Egreso e WHERE e.fechaAplica BETWEEN #{#desde} AND #{#hasta}")
+	@Query("SELECT new java.lang.Double(e.valor) FROM Egreso e WHERE e.fechaAplica BETWEEN :desde AND :hasta")
 	public Double consultarTotalEgresosAplicados(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta

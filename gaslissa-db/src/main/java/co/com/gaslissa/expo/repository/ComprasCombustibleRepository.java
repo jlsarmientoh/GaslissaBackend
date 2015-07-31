@@ -20,13 +20,13 @@ import co.com.gaslissa.expo.entity.ComprasCombustible;
 public interface ComprasCombustibleRepository
 		extends CrudRepository<ComprasCombustible, Long>, QueryDslPredicateExecutor<ComprasCombustible> {
 	
-	@Query("SELECT c FROM ComprasCombustible c WHERE c.fecha BETWEEN #{#desde} AND #{#hasta}")
+	@Query("SELECT c FROM ComprasCombustible c WHERE c.fecha BETWEEN :desde AND :hasta")
 	List<ComprasCombustible> consultarComprasFecha(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta
 			);
 	
-	@Query("SELECT NEW java.lang.Double(c.cantidad) FROM ComprasCombustible c WHERE c.fecha BETWEEN #{#desde} AND #{#hasta} AND c.producto.idProducto = #{#producto}")
+	@Query("SELECT NEW java.lang.Double(c.cantidad) FROM ComprasCombustible c WHERE c.fecha BETWEEN :desde AND :hasta AND c.producto.idProducto = :producto")
 	public Double consultarComprasGalonesFechaProducto(
 			@Param("producto")Long producto,
 			@Param("desde")Date desde,

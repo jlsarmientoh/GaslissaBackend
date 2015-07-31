@@ -5,12 +5,10 @@ spring:
 spring:
   profiles: default
 server:
-  port: 8081
-servipunto:
+  port: 8082
+expo:
   driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
-  url: jdbc:sqlserver://YORCH\SQLEXPRESS;databaseName=Estacion
+  url: jdbc:sqlserver://YORCH\SQLEXPRESS;databaseName=Expo
   user: gaslissa_app
   pwd: $Gaslissa.2k9!
-  gruposIsla: 
-    - 1,2
-    - 3,4  
+  

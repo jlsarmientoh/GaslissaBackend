@@ -20,13 +20,13 @@ import co.com.gaslissa.expo.entity.Venta;
  */
 public interface VentaRepository extends CrudRepository<Venta, Long>, QueryDslPredicateExecutor<Venta> {
 
-	@Query("SELECT NEW co.com.gaslissa.expo.entity.Venta(v.fecha, v.nit, v.total, v.modoPago) FROM Venta v WHERE v.fecha BETWEEN #{#desde} AND #{#hasta} GROUP BY v.fecha, v.nit, v.modoPago")
+	@Query("SELECT NEW co.com.gaslissa.expo.entity.Venta(v.fecha, v.nit, v.total, v.modoPago.idModoPago) FROM Venta v WHERE v.fecha BETWEEN :desde AND :hasta GROUP BY v.fecha, v.nit, v.modoPago")
 	public List<Venta> consultarVentasAgrupadas(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta
 			);
 	
-	@Query("SELECT NEW co.com.gaslissa.expo.entity.Venta(v.nit, v.total, v.modoPago) FROM Venta v WHERE v.fecha BETWEEN #{#desde} AND #{#hasta} AND (v.nit = #{#hasta} OR v.nit = #{#codigo}) AND v.modoPago.idModoPago = #{#modoPago} GROUP BY v.nit, v.producto, v.modoPago")
+	@Query("SELECT NEW co.com.gaslissa.expo.entity.Venta(v.nit, v.total, v.modoPago.idModoPago) FROM Venta v WHERE v.fecha BETWEEN :desde AND :hasta AND (v.nit = :nit OR v.nit = :codigo) AND v.modoPago.idModoPago = :modoPago GROUP BY v.nit, v.producto, v.modoPago")
 	public List<Venta> consultarVentasAgrupadas(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta,
@@ -35,7 +35,7 @@ public interface VentaRepository extends CrudRepository<Venta, Long>, QueryDslPr
 			@Param("modoPago") Long modoPago 
 			);
 	
-	@Query("SELECT NEW co.com.gaslissa.expo.entity.Venta(v.nit, v.total) FROM Venta v WHERE v.fecha BETWEEN #{#desde} AND #{#hasta} AND (v.nit = #{#hasta} OR v.nit = #{#codigo}) GROUP BY v.nit, v.producto")
+	@Query("SELECT NEW co.com.gaslissa.expo.entity.Venta(v.nit, v.total) FROM Venta v WHERE v.fecha BETWEEN :desde AND :hasta AND (v.nit = :nit OR v.nit = :codigo) GROUP BY v.nit, v.producto")
 	public List<Venta> consultarVentasAgrupadas(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta,
@@ -43,7 +43,7 @@ public interface VentaRepository extends CrudRepository<Venta, Long>, QueryDslPr
 			@Param("codigo") String codigo
 			);
 	
-	@Query("SELECT v FROM Venta v WHERE v.fecha BETWEEN #{#desde} AND #{#hasta} AND (v.nit = #{#hasta} OR v.nit = #{#codigo})")
+	@Query("SELECT v FROM Venta v WHERE v.fecha BETWEEN :desde AND :hasta AND (v.nit = :nit OR v.nit = :codigo)")
 	public List<Venta> consultarVentasCliente(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta,

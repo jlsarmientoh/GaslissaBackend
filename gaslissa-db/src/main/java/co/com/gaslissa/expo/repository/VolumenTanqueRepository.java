@@ -19,13 +19,13 @@ import co.com.gaslissa.expo.entity.VolumenesTanque;
 public interface VolumenTanqueRepository
 		extends CrudRepository<VolumenesTanque, Long>, QueryDslPredicateExecutor<VolumenesTanque> {
 
-	@Query("SELECT v FROM VolumenesTanque v WHERE v.tanque.idTanque = #{#tanque} AND v.producto.idProducto = #{#producto}")
+	@Query("SELECT v FROM VolumenesTanque v WHERE v.tanque.idTanque = :tanque AND v.producto.idProducto = :producto")
 	public List<VolumenesTanque> consultarVolumenes(
 			@Param("tanque")Integer idTanque,
 			@Param("producto")Integer idProducto
 			);
 	
-	@Query("SELECT v FROM VolumenesTanque v WHERE v.tanque.idTanque = #{#tanque} AND v.producto.idProducto = #{#producto} AND v.lecturaCm = #{#cms}")
+	@Query("SELECT v FROM VolumenesTanque v WHERE v.tanque.idTanque = :tanque AND v.producto.idProducto = :producto AND v.lecturaCm = :cms")
 	public VolumenesTanque consultarVolumen(
 			@Param("tanque")Integer idTanque,
 			@Param("producto")Integer idProducto,

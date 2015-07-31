@@ -20,19 +20,19 @@ import co.com.gaslissa.expo.entity.ProductosTurno;
 public interface ProductosTurnoRepository
 		extends CrudRepository<ProductosTurno, Long>, QueryDslPredicateExecutor<ProductosTurno> {
 
-	@Query("SELECT NEW co.com.gaslissa.expo.entity.ProductosTurno(p.fecha, p.galones, p.producto, p.valor) FROM ProductosTurno p WHERE p.fecha BETWEEN #{#desde} AND #{#hasta} GROUP BY p.fecha, p.producto")
+	@Query("SELECT NEW co.com.gaslissa.expo.entity.ProductosTurno(p.fecha, p.galones, p.producto, p.valor) FROM ProductosTurno p WHERE p.fecha BETWEEN :desde AND :hasta GROUP BY p.fecha, p.producto")
 	public List<ProductosTurno> consultarProductosAgrupados(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta
 			);
 	
-	@Query("SELECT NEW java.lang.Double(p.valor) FROM ProductosTurno p WHERE p.fecha BETWEEN #{#desde} AND #{#hasta}")
+	@Query("SELECT NEW java.lang.Double(p.valor) FROM ProductosTurno p WHERE p.fecha BETWEEN :desde AND :hasta")
 	public Double consultarTotalConsumo(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta
 			);
 	
-	@Query("SELECT NEW java.lang.Double(p.galones) FROM ProductosTurno p WHERE p.fecha BETWEEN #{#desde} AND #{#hasta}")
+	@Query("SELECT NEW java.lang.Double(p.galones) FROM ProductosTurno p WHERE p.fecha BETWEEN :desde AND :hasta")
 	public Double consultarTotalGalones(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta

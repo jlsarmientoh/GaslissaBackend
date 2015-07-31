@@ -3,11 +3,13 @@
  */
 package co.com.gaslissa.core.cierre;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import co.com.gaslissa.common.dto.MedioDePago;
 import co.com.gaslissa.core.exception.ModosPagoException;
 import co.com.gaslissa.expo.entity.ModoPago;
 import co.com.gaslissa.expo.repository.ModoPagoRepository;
@@ -33,12 +35,26 @@ public class ModoPagoCore {
 	 * @return
 	 * @throws ModosPagoException
 	 */
-	public List<ModoPago> consultarModosPagoPadre() throws ModosPagoException{
+	public List<MedioDePago> consultarModosPagoPadre() throws ModosPagoException{
 		try{
-			return this.modoPagoRepository.consultarModosPagoPadre();
+			List<MedioDePago> medios = null;
+			List<ModoPago> modos = this.modoPagoRepository.consultarModosPagoPadre();
+			
+			if(modos !=null){
+				medios = new ArrayList<MedioDePago>();
+				for(ModoPago modo : modos){
+					MedioDePago medio = new MedioDePago();
+					medio.setNombre(modo.getNombre());
+					medio.setId(modo.getIdModoPago());
+					medio.setDetalle(modo.getDetalle());
+					medios.add(medio);
+				}
+			}
+			
+			return medios;
 		}catch(Exception ex){
-			logger.error("No se pudo obtener la información de medios de pago: " + ex.getMessage(), ex);
-			throw new ModosPagoException("No se pudo obtener la información de medios de pago: " + ex.getMessage());
+			logger.error("No se pudo obtener la informaciï¿½n de medios de pago: " + ex.getMessage(), ex);
+			throw new ModosPagoException("No se pudo obtener la informaciï¿½n de medios de pago: " + ex.getMessage());
 		}
 	}
 	
@@ -48,12 +64,26 @@ public class ModoPagoCore {
 	 * @return
 	 * @throws ModosPagoException
 	 */
-	public List<ModoPago> consultarModosPagoHijo(int idPadre) throws ModosPagoException{
+	public List<MedioDePago> consultarModosPagoHijo(long idPadre) throws ModosPagoException{
 		try{
-			return this.modoPagoRepository.consultarModosPagoHijo(idPadre);
+			List<MedioDePago> medios = null;
+			List<ModoPago> modos = this.modoPagoRepository.consultarModosPagoHijo(idPadre);
+			
+			if(modos !=null){
+				medios = new ArrayList<MedioDePago>();
+				for(ModoPago modo : modos){
+					MedioDePago medio = new MedioDePago();
+					medio.setNombre(modo.getNombre());
+					medio.setId(modo.getIdModoPago());
+					medio.setDetalle(modo.getDetalle());
+					medios.add(medio);
+				}
+			}
+			
+			return medios;
 		}catch(Exception ex){
-			logger.error("No se pudo obtener la información de medios de pago: " + ex.getMessage(), ex);
-			throw new ModosPagoException("No se pudo obtener la información de medios de pago: " + ex.getMessage());
+			logger.error("No se pudo obtener la informaciï¿½n de medios de pago: " + ex.getMessage(), ex);
+			throw new ModosPagoException("No se pudo obtener la informaciï¿½n de medios de pago: " + ex.getMessage());
 		}
 	}
 }

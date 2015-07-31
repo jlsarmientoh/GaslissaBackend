@@ -7,8 +7,6 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -43,7 +41,7 @@ public class ServipuntoConfig {
 	@Value("${servipunto.pwd}")
 	private String pwd;
 
-	@Bean//(name = "servipuntoDatasource")
+	@Bean
 	public DataSource datasource(){
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		
@@ -57,7 +55,7 @@ public class ServipuntoConfig {
 	
 	@Bean(name="entityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean entityManager(
-			/*@Qualifier("servipuntoDatasource")*/ DataSource datasource
+			DataSource datasource
 			){
 		LocalContainerEntityManagerFactoryBean entityManagerFacotry = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFacotry.setDataSource(datasource);
@@ -78,10 +76,10 @@ public class ServipuntoConfig {
 		return entityManagerFacotry;
 	}
 	
-	@Bean//(name= "servipuntoTransactionManager")
+	@Bean
 	public JpaTransactionManager transactionManager(
-			/*@Qualifier("entityManagerFactory")*/ LocalContainerEntityManagerFactoryBean entityManager,
-			/*@Qualifier("servipuntoDatasource")*/ DataSource datasource
+			LocalContainerEntityManagerFactoryBean entityManager,
+			DataSource datasource
 			){
 		JpaTransactionManager transactionManager = new JpaTransactionManager(entityManager.getObject());
 		transactionManager.setDataSource(datasource);
@@ -89,9 +87,9 @@ public class ServipuntoConfig {
 		return transactionManager;
 	}
 	
-	@Bean//(name = "servipuntoSessionFactory")
+	@Bean
 	public HibernateJpaSessionFactoryBean sessionFactory(
-			/*@Qualifier("servipuntoEntityManager")*/ LocalContainerEntityManagerFactoryBean entityManager
+			LocalContainerEntityManagerFactoryBean entityManager
 			){
 		HibernateJpaSessionFactoryBean sessionFactory = new HibernateJpaSessionFactoryBean();
 		sessionFactory.setEntityManagerFactory(entityManager.getObject());

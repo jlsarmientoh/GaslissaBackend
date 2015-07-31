@@ -21,6 +21,6 @@ public interface ModoPagoRepository extends CrudRepository<ModoPago, Long>, Quer
 	@Query("SELECT m FROM ModoPago m WHERE m.idModoPadre = 0")
 	public List<ModoPago> consultarModosPagoPadre();
 	
-	@Query("SELECT m FROM ModoPago m WHERE m.idModoPadre = #{#padre}")
-	public List<ModoPago> consultarModosPagoHijo(@Param("padre")int idPadre);
+	@Query("SELECT m FROM ModoPago m WHERE m.idModoPadre = :padre")
+	public List<ModoPago> consultarModosPagoHijo(@Param("padre")long idPadre);
 }

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import co.com.gaslissa.servipunto.core.config.CoreConfig;
+import co.com.gaslissa.core.config.CoreConfig;
 
 /**
  * @author Jorge
@@ -19,7 +19,7 @@ import co.com.gaslissa.servipunto.core.config.CoreConfig;
 @Configuration
 @Import({CoreConfig.class})
 public class ApplicationConfig {
-
+	
 	@Value("${server.port}")
 	private int port;
 	
@@ -29,4 +29,7 @@ public class ApplicationConfig {
 	    factory.setPort(port);
 	    return factory;
 	}
+
+
+
 }

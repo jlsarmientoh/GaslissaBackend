@@ -18,14 +18,14 @@ import co.com.gaslissa.expo.entity.Sobretasa;
  */
 public interface SobretasaRepository extends CrudRepository<Sobretasa, Long>, QueryDslPredicateExecutor<Sobretasa> {
 
-	@Query("SELECT s FROM Sobretasa s WHERE s.anioVigencia = #{#anio} AND s.mesVigencia = #{#mes} AND s.diaInicioVigencia <= #{#dia} AND s.diaFinVigencia >= #{#dia}")
+	@Query("SELECT s FROM Sobretasa s WHERE s.anioVigencia = :anio AND s.mesVigencia = :mes AND s.diaInicioVigencia <= :dia AND s.diaFinVigencia >= :dia")
 	public List<Sobretasa> consultarSobretasas(
 			@Param("anio") Integer anio,
 			@Param("mes") Integer mes,
 			@Param("dia") Integer dia
 			);
 	
-	@Query("SELECT s FROM Sobretasa s WHERE s.producto.idProducto = #{#producto} AND s.anioVigencia = #{#anio} AND s.mesVigencia = #{#mes} AND s.diaInicioVigencia <= #{#dia} AND s.diaFinVigencia >= #{#dia}")
+	@Query("SELECT s FROM Sobretasa s WHERE s.producto.idProducto = :producto AND s.anioVigencia = :anio AND s.mesVigencia = :mes AND s.diaInicioVigencia <= :dia AND s.diaFinVigencia >= :dia")
 	public List<Sobretasa> consultarSobretasaProducto(
 			@Param("anio") Integer anio,
 			@Param("mes") Integer mes,

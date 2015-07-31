@@ -9,6 +9,8 @@ public class MedioDePago implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -326530471827651474L;
+	
+	private long id;
 
 	private String nombre;
 	
@@ -17,6 +19,14 @@ public class MedioDePago implements Serializable{
 	private boolean detalle;
 	
 	private List<ValeVenta> vales;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getNombre() {
 		return nombre;
