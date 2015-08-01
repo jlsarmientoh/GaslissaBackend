@@ -21,4 +21,9 @@ public interface UsuarioRespository extends CrudRepository<Usuario, String>, Que
 			@Param("usuario")String usuario,
 			@Param("pwd")String password
 			);
+	
+	@Query("SELECT u FROM Usuario u WHERE u.idUsuario = :usuario")
+	public Usuario consultarUsuario(
+			@Param("usuario")String usuario
+			);
 }

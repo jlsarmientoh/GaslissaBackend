@@ -8,10 +8,12 @@ import org.springframework.context.annotation.Import;
 import co.com.gaslissa.core.cierre.CierreCore;
 import co.com.gaslissa.core.cierre.ModoPagoCore;
 import co.com.gaslissa.core.cliente.ClientesExpoCore;
+import co.com.gaslissa.core.usuario.UsuarioCore;
 import co.com.gaslissa.expo.config.ExpoConfig;
 import co.com.gaslissa.expo.repository.CierreVentaRepository;
 import co.com.gaslissa.expo.repository.ClienteRepository;
 import co.com.gaslissa.expo.repository.ModoPagoRepository;
+import co.com.gaslissa.expo.repository.UsuarioRespository;
 import co.com.gaslissa.expo.repository.VentaRepository;
 
 @Configuration
@@ -38,5 +40,12 @@ public class CoreConfig {
 		return new CierreCore(
 				ventaRepository, 
 				cierreVentaRepository);
+	}
+	
+	@Bean
+	@Autowired
+	public UsuarioCore createUsuarioCore(
+			UsuarioRespository usuarioRepository) throws Exception{
+		return new UsuarioCore(usuarioRepository);
 	}
 }
