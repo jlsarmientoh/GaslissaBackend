@@ -18,8 +18,8 @@ public interface CierreEfectivoRepository
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta);
 	
-	@Query("SELECT NEW java.lang.Integer(COUNT(c.idCierre)) FROM CierreEfectivo c WHERE c.fecha BETWEEN :desde AND :hasta")
-	public Integer contarCierres(
+	@Query("SELECT NEW java.lang.Long(COUNT(c.idCierre)) FROM CierreEfectivo c WHERE c.fecha BETWEEN :desde AND :hasta")
+	public long contarCierres(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta);
 }

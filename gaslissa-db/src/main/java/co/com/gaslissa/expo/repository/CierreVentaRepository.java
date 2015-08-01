@@ -41,7 +41,7 @@ public interface CierreVentaRepository
 	
 	//TODO cambiar esto por la tabla de detalle cierre
 	@Query("SELECT NEW java.lang.Long(COUNT(c.idCierre)) FROM CierreVenta c WHERE c.fecha BETWEEN :desde AND :hasta AND c.turno = :turno AND c.isla IN(:isla) AND c.codEmpleado = :codEmp")
-	public Double consultarTotalMedioPago(
+	public long consultarTotalMedioPago(
 			/*@Param("medio") long medio,*/
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta);

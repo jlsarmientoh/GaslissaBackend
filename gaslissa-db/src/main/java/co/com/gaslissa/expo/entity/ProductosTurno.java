@@ -3,6 +3,7 @@ package co.com.gaslissa.expo.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
@@ -41,9 +42,9 @@ public class ProductosTurno implements Serializable {
 	public ProductosTurno() {
 	}
 
-	public ProductosTurno(Timestamp fecha, double galones, String producto, double valor) {
+	public ProductosTurno(Date fecha, double galones, String producto, double valor) {
 		super();
-		this.fecha = fecha;
+		this.fecha = new Timestamp(fecha.getTime());
 		this.galones = galones;
 		this.producto = producto;
 		this.valor = valor;

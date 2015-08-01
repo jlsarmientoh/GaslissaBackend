@@ -27,13 +27,13 @@ public interface ProductosTurnoRepository
 			);
 	
 	@Query("SELECT NEW java.lang.Double(p.valor) FROM ProductosTurno p WHERE p.fecha BETWEEN :desde AND :hasta")
-	public Double consultarTotalConsumo(
+	public double consultarTotalConsumo(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta
 			);
 	
 	@Query("SELECT NEW java.lang.Double(p.galones) FROM ProductosTurno p WHERE p.fecha BETWEEN :desde AND :hasta")
-	public Double consultarTotalGalones(
+	public double consultarTotalGalones(
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta
 			);

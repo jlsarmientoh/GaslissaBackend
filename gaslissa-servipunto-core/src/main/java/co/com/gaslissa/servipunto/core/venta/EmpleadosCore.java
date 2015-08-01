@@ -45,8 +45,8 @@ public class EmpleadosCore {
 				
 				for(Empleado empleado : empleados){
 					Islero islero = new Islero();
-					islero.setCodigo(empleado.getCodEmp());
-					islero.setNombre(empleado.getNombre());
+					islero.setCodigo(empleado.getCodEmp().trim());
+					islero.setNombre(empleado.getNombre().trim());
 					isleros.add(islero);
 				}
 			}

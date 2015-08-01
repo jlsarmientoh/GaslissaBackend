@@ -69,15 +69,15 @@ public class VentasCore {
 				for(ViewVenta venta : ventas){
 					ValeVenta vale = new ValeVenta();
 					vale.setCantidad(venta.getCantidad().doubleValue());
-					vale.setCliente(venta.getCliente());
-					vale.setCodEmp(Integer.valueOf(venta.getCodEmp()));
+					vale.setCliente(venta.getCliente().trim());
+					vale.setCodEmp(Integer.valueOf(venta.getCodEmp().trim()));
 					vale.setDescuento(venta.getDescuento().doubleValue());
 					vale.setFecha(new Date(venta.getFecha().getTime()));
 					vale.setIsla(isla);
 					vale.setKilometraje(venta.getKilAct().intValue());
-					vale.setNit(venta.getNit());
-					vale.setPlaca(venta.getVehiculo_Placa());
-					vale.setProducto(venta.getProducto());
+					vale.setNit(venta.getNit().trim());
+					vale.setPlaca(venta.getVehiculo_Placa().trim());
+					vale.setProducto(venta.getProducto().trim());
 					vale.setTiquete_Nro(venta.getTiquete_Nro());
 					vale.setTotal(venta.getTotal().doubleValue());
 					vale.setTurno(venta.getTurno());
@@ -121,15 +121,15 @@ public class VentasCore {
 				for(ViewVenta venta : ventas){
 					ValeVenta vale = new ValeVenta();
 					vale.setCantidad(venta.getCantidad().doubleValue());
-					vale.setCliente(venta.getCliente());
-					vale.setCodEmp(Integer.valueOf(venta.getCodEmp()));
+					vale.setCliente(venta.getCliente().trim());
+					vale.setCodEmp(Integer.valueOf(venta.getCodEmp().trim()));
 					vale.setDescuento(venta.getDescuento().doubleValue());
 					vale.setFecha(new Date(venta.getFecha().getTime()));
 					vale.setIsla(isla);
 					vale.setKilometraje(venta.getKilAct().intValue());
-					vale.setNit(venta.getNit());
-					vale.setPlaca(venta.getVehiculo_Placa());
-					vale.setProducto(venta.getProducto());
+					vale.setNit(venta.getNit().trim());
+					vale.setPlaca(venta.getVehiculo_Placa().trim());
+					vale.setProducto(venta.getProducto().trim());
 					vale.setTiquete_Nro(venta.getTiquete_Nro());
 					vale.setTotal(venta.getTotal().doubleValue());
 					vale.setTurno(venta.getTurno());
@@ -193,16 +193,16 @@ public class VentasCore {
             
             if(venta != null){
             	vale = new ValeVenta();
-	            vale.setCantidad(venta.getCantidad().doubleValue());
-				vale.setCliente(venta.getCliente());
-				vale.setCodEmp(Integer.valueOf(venta.getCodEmp()));
+				vale.setCantidad(venta.getCantidad().doubleValue());
+				vale.setCliente(venta.getCliente().trim());
+				vale.setCodEmp(Integer.valueOf(venta.getCodEmp().trim()));
 				vale.setDescuento(venta.getDescuento().doubleValue());
 				vale.setFecha(new Date(venta.getFecha().getTime()));
 				vale.setIsla(isla);
 				vale.setKilometraje(venta.getKilAct().intValue());
-				vale.setNit(venta.getNit());
-				vale.setPlaca(venta.getVehiculo_Placa());
-				vale.setProducto(venta.getProducto());
+				vale.setNit(venta.getNit().trim());
+				vale.setPlaca(venta.getVehiculo_Placa().trim());
+				vale.setProducto(venta.getProducto().trim());
 				vale.setTiquete_Nro(venta.getTiquete_Nro());
 				vale.setTotal(venta.getTotal().doubleValue());
 				vale.setTurno(venta.getTurno());
@@ -222,16 +222,16 @@ public class VentasCore {
             
             if(venta != null){
             	vale = new ValeVenta();
-	            vale.setCantidad(venta.getCantidad().doubleValue());
-				vale.setCliente(venta.getCliente());
-				vale.setCodEmp(Integer.valueOf(venta.getCodEmp()));
+				vale.setCantidad(venta.getCantidad().doubleValue());
+				vale.setCliente(venta.getCliente().trim());
+				vale.setCodEmp(Integer.valueOf(venta.getCodEmp().trim()));
 				vale.setDescuento(venta.getDescuento().doubleValue());
 				vale.setFecha(new Date(venta.getFecha().getTime()));
 				vale.setIsla(venta.getIsla());
 				vale.setKilometraje(venta.getKilAct().intValue());
-				vale.setNit(venta.getNit());
-				vale.setPlaca(venta.getVehiculo_Placa());
-				vale.setProducto(venta.getProducto());
+				vale.setNit(venta.getNit().trim());
+				vale.setPlaca(venta.getVehiculo_Placa().trim());
+				vale.setProducto(venta.getProducto().trim());
 				vale.setTiquete_Nro(venta.getTiquete_Nro());
 				vale.setTotal(venta.getTotal().doubleValue());
 				vale.setTurno(venta.getTurno());
