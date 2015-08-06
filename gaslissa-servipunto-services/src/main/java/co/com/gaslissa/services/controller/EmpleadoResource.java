@@ -37,7 +37,7 @@ public class EmpleadoResource {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ResponseEntity<List<Islero>> getVentasNoFidelizados(){
+	public ResponseEntity<List<Islero>> getEmpleados(){
 		try {
 			List<Islero> isleros = empleadosCore.getEmpleados();
 			
