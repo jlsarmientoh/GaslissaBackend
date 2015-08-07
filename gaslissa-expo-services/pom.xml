@@ -24,4 +24,17 @@
   		<artifactId>spring-boot-starter-web</artifactId>
   	</dependency>
   </dependencies>
+  
+  <build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+        			<mainClass>${start-class}</mainClass>
+        			<layout>ZIP</layout>
+      			</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
