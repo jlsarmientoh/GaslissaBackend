@@ -243,5 +243,19 @@ public class VentasCore {
             throw new CoreException("No se puede obtener informaci�n del ticket # "+ id + " desde la base de datos Servipunto: " + ex.getMessage());
         }
 	}
+
+	public Double consultarTotalVentasNoFidelizadas (
+			long codEmpleado, 
+			int turno, 
+			int isla, 
+			Date desde, 
+			Date hasta)throws CoreException{
+		try{
+            return this.viewVentaRepository.consultarTotalVentasNoFidelizados(EstadoCliente.NO_FIDELIZADO.descripcion(), desde, hasta, turno, CoreUtil.getIslas(isla, this.gruposIsla), Long.toString(codEmpleado)).doubleValue();                
+        }catch (Exception ex){
+        	logger.error("No se puede calcular el total de las ventas fidelizadas desde la base de datos Servipunto: " + ex.getMessage(), ex);
+            throw new CoreException("No se puede calcular el total de las ventas no fidelizadas desde la base de datos Servipunto: " + ex.getMessage());
+        }
+	}
 	
 }

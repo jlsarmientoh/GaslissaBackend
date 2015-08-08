@@ -29,7 +29,7 @@ public class ConsumoResource {
 	}
 	
 	@RequestMapping(value = "/turno/total", method = RequestMethod.POST)
-	public ResponseEntity<Double> getVentasFidelizados(
+	public ResponseEntity<Double> getTotalProductosTurno(
 			@RequestBody CierreTurno input){
 		try {
 			Double total = consumoCore.consultarTotalProductosTurno(input.getFecha(), input.getFecha(), input.getIsla(), input.getTurno());
@@ -40,7 +40,7 @@ public class ConsumoResource {
 				return new ResponseEntity<Double>(total, HttpStatus.OK);
 			}
 		} catch (CoreException ex) {
-			logger.error("No se puede realizar la operación de guardar cierre.  Por favor revise los datos del cierre y vuelva a intentarlo." + ex.getMessage());
+			logger.error("No se puede realizar la operación consultar el total de consumos.  Por favor revise los datos del cierre y vuelva a intentarlo." + ex.getMessage());
 			return new ResponseEntity<Double>(new Double(0), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

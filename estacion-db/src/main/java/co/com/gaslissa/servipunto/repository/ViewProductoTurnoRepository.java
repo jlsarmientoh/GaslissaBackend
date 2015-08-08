@@ -40,7 +40,7 @@ public class ViewProductoTurnoRepository{
 			int turno,
 			List<Integer> isla
 			){
-		Query query = em.createQuery("SELECT NEW co.com.gaslissa.servipunto.entity.ViewProductosTurno(v.fecha, v.galones, v.isla, v.producto, v.turno, v.valor) FROM ViewProductosTurno v WHERE v.fecha BETWEEN :desde AND :hasta AND v.turno = :turno ADN v.isla IN(:isla)");
+		Query query = em.createQuery("SELECT NEW co.com.gaslissa.servipunto.entity.ViewProductosTurno(v.fecha, v.galones, v.isla, v.producto, v.turno, v.valor) FROM ViewProductosTurno v WHERE v.fecha BETWEEN :desde AND :hasta AND v.turno = :turno AND v.isla IN(:isla)");
 		query.setParameter("desde", desde);
 		query.setParameter("hasta", hasta);
 		query.setParameter("turno", turno);
@@ -63,7 +63,7 @@ public class ViewProductoTurnoRepository{
 			int turno,
 			List<Integer> isla
 			){
-		Query query = em.createQuery("SELECT NEW java.lang.Double(SUM(v.valor)) FROM ViewProductosTurno v WHERE v.fecha BETWEEN :desde AND :hasta AND v.turno = :turno ADN v.isla IN(:isla)");
+		Query query = em.createQuery("SELECT NEW java.lang.Double(SUM(v.valor)) FROM ViewProductosTurno v WHERE v.fecha BETWEEN :desde AND :hasta AND v.turno = :turno AND v.isla IN(:isla)");
 		query.setParameter("desde", desde);
 		query.setParameter("hasta", hasta);
 		query.setParameter("turno", turno);

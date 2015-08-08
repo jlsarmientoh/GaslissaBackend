@@ -65,4 +65,13 @@ public interface ViewVentaRepository extends CrudRepository<ViewVenta, Long>, Qu
 			@Param("turno")int turno,
 			@Param("isla") List<Integer> isla,
 			@Param("codEmp") String codEmp);
+	
+	@Query("SELECT v.total FROM ViewVenta v WHERE v.cliente = :cliente AND v.fecha BETWEEN :desde AND :hasta AND v.turno = :turno AND v.isla IN(:isla) AND v.codEmp = :codEmp")
+	public BigDecimal consultarTotalVentasNoFidelizados(
+			@Param("cliente") String cliente,
+			@Param("desde")Date desde,
+			@Param("hasta")Date hasta,
+			@Param("turno")int turno,
+			@Param("isla") List<Integer> isla,
+			@Param("codEmp") String codEmp);
 }
