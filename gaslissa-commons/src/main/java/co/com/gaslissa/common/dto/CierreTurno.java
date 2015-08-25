@@ -34,6 +34,8 @@ public class CierreTurno implements Serializable{
 	private double totalConsumos;
 	
 	private List<MedioDePago> mediosDePago;
+	
+	private List<Consumo> consumos;
 
 	@JsonSerialize(using=DateSerializer.class)
 	public Date getFecha() {
@@ -90,5 +92,13 @@ public class CierreTurno implements Serializable{
 
 	public void setMediosDePago(List<MedioDePago> mediosDePago) {
 		this.mediosDePago = mediosDePago;
+	}
+
+	public List<Consumo> getConsumos() {
+		return consumos;
+	}
+
+	public void setConsumos(List<Consumo> consumos) {
+		this.consumos = consumos;
 	}
 }
