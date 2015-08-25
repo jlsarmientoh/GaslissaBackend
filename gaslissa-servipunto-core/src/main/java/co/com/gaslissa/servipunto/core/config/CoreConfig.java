@@ -3,7 +3,9 @@ package co.com.gaslissa.servipunto.core.config;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -18,9 +20,10 @@ import co.com.gaslissa.servipunto.repository.ViewVentaRepository;
 
 @Configuration
 @Import({ServipuntoConfig.class})
-@ConfigurationProperties(prefix = "servipunto")
+@EnableConfigurationProperties
 public class CoreConfig {
 	
+	@Value("${servipunto.gruposIsla}")
 	private List<String> gruposIsla;
 	
 	@Bean
