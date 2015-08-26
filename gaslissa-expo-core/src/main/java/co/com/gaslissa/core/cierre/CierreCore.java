@@ -171,5 +171,6 @@ public class CierreCore {
 			throw new CierreTurnoException("No se pudo realizar el cierre: " + ex.getMessage());
 		}
 	}
+	
 
 }
