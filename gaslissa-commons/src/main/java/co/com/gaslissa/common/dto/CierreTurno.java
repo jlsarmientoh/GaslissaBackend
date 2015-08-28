@@ -20,6 +20,8 @@ public class CierreTurno implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 4316036913870266004L;
+	
+	private long id;
 
 	private Date fecha;
 	
@@ -100,5 +102,13 @@ public class CierreTurno implements Serializable{
 
 	public void setConsumos(List<Consumo> consumos) {
 		this.consumos = consumos;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 }

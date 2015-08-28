@@ -37,4 +37,12 @@ public interface ProductosTurnoRepository
 			@Param("desde")Date desde,
 			@Param("hasta")Date hasta
 			);
+	
+	@Query("SELECT p FROM ProductosTurno WHERE p.isla = :isla AND p.turno = :turno AND p.fecha BETWEEN :desde AND :hasta")
+	public List<ProductosTurno> consultarProductosTurno(
+			@Param("isla") int isla,
+			@Param("turno") int turno,
+			@Param("desde") Date desde,
+			@Param("hasta") Date hasta
+			);
 }

@@ -1,6 +1,7 @@
 package co.com.gaslissa.core.cierre;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -172,5 +173,82 @@ public class CierreCore {
 		}
 	}
 	
-
+	public List<CierreTurno> consultarCierres( 
+			Date desde, 
+			Date hasta) throws CierreTurnoException{
+		try{
+			List<CierreTurno> cierres = null;
+			List<CierreVenta> cierresVenta = this.cierreVentaRepository.consultarCierres(desde, hasta);
+			
+			if(cierresVenta != null && !cierresVenta.isEmpty()){
+				cierres = new ArrayList<CierreTurno>();
+				
+				for(CierreVenta cierreVenta : cierresVenta){
+					/*
+					 * Se cargan los datos del cierre
+					 */
+					CierreTurno cierre = new CierreTurno();
+					cierre.setId(cierreVenta.getIdCierre());
+					cierre.setEmpleado((int) cierreVenta.getCodEmpleado());
+					cierre.setFecha(new Date(cierreVenta.getFecha().getTime()));
+					cierre.setIsla((int)cierreVenta.getIsla());
+					cierre.setTotalVentas(cierreVenta.getTotalVentas());
+					cierre.setTurno((int) cierreVenta.getTurno());
+					
+					/*
+					 * Se carga la información del detalle de cada cierres
+					 */
+					List<DetalleCierre> detalles = this.detalleCierreRepository.consultarDetallesCierre(cierreVenta.getIdCierre());
+					
+					if(detalles != null && !detalles.isEmpty()){
+						List<MedioDePago> mediosDePago = new ArrayList<MedioDePago>();
+						
+						for(DetalleCierre detalle : detalles){
+							MedioDePago medioDePago = new MedioDePago();
+							medioDePago.setId(detalle.getModoPago().getIdModoPago());
+							medioDePago.setNombre(detalle.getModoPago().getNombre());
+							medioDePago.setDetalle(detalle.getModoPago().getDetalle());
+							medioDePago.setValor(detalle.getTotal());
+							
+							mediosDePago.add(medioDePago);
+						}
+						
+						cierre.setMediosDePago(mediosDePago);
+					}
+					
+					/**
+					 * Se cargan los productos del cierre
+					 */
+					List<ProductosTurno> productosTurno = this.productosTurnoRepository.consultarProductosTurno((int)cierreVenta.getIsla(), (int)cierreVenta.getTurno(), cierre.getFecha(), cierre.getFecha());
+					
+					if(productosTurno != null && !productosTurno.isEmpty()){
+						List<Consumo> consumos = new ArrayList<Consumo>();
+						
+						for(ProductosTurno pt : productosTurno){
+							Consumo consumo = new Consumo();
+							consumo.setFecha(pt.getFecha());
+							consumo.setGalones(pt.getGalones());
+							consumo.setIsla(pt.getIsla());
+							consumo.setProducto(pt.getProducto());
+							consumo.setTurno(pt.getTurno());
+							consumo.setValor(pt.getValor());
+							
+							consumos.add(consumo);
+						}
+						
+						cierre.setConsumos(consumos);
+					}
+					/*
+					 * Se añade el DTO del cierre a la lista
+					 */
+					cierres.add(cierre);
+				}
+			}
+			
+			return cierres;
+		} catch(Exception ex){
+			logger.error("No se puede consultar la información de cierres para las fechas seleccionadas: " + ex.getMessage());
+			throw new CierreTurnoException("No se puede consultar la información de cierres para las fechas seleccionadas: " + ex.getMessage());
+		}
+	}
 }
