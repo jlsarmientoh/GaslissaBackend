@@ -12,7 +12,9 @@ import co.com.gaslissa.core.usuario.UsuarioCore;
 import co.com.gaslissa.expo.config.ExpoConfig;
 import co.com.gaslissa.expo.repository.CierreVentaRepository;
 import co.com.gaslissa.expo.repository.ClienteRepository;
+import co.com.gaslissa.expo.repository.DetalleCierreRepository;
 import co.com.gaslissa.expo.repository.ModoPagoRepository;
+import co.com.gaslissa.expo.repository.ProductosTurnoRepository;
 import co.com.gaslissa.expo.repository.UsuarioRespository;
 import co.com.gaslissa.expo.repository.VentaRepository;
 
@@ -36,10 +38,12 @@ public class CoreConfig {
 	@Autowired
 	public CierreCore createVentasCore(
 			VentaRepository ventaRepository,  
-			CierreVentaRepository cierreVentaRepository) throws Exception{
+			CierreVentaRepository cierreVentaRepository,
+			DetalleCierreRepository detalleCierreRepository,
+			ProductosTurnoRepository productosTurnoRepository) throws Exception{
 		return new CierreCore(
 				ventaRepository, 
-				cierreVentaRepository);
+				cierreVentaRepository, detalleCierreRepository, productosTurnoRepository);
 	}
 	
 	@Bean
