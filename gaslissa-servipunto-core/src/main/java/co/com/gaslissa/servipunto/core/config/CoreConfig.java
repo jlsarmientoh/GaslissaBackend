@@ -21,9 +21,10 @@ import co.com.gaslissa.servipunto.repository.ViewVentaRepository;
 @Configuration
 @Import({ServipuntoConfig.class})
 @EnableConfigurationProperties
+@ConfigurationProperties(prefix = "servipunto")
 public class CoreConfig {
 	
-	@Value("${servipunto.gruposIsla}")
+	//@Value("${servipunto.gruposIsla}")
 	private List<String> gruposIsla;
 	
 	@Bean
